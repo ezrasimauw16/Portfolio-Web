@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Ezra's Web</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <style>
+        /* Contact Page Layout */
+        .contact-layout {
+            display: flex;
+            gap: 50px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        .contact-form-container {
+            flex: 1.5;
+            min-width: 300px;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03); /* Extremely subtle glass background */
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s ease;
+            box-sizing: border-box;
+        }
+        .form-control::placeholder {
+            color: var(--text-sub);
+            opacity: 0.5;
+        }
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(123, 140, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        textarea.form-control {
+            resize: vertical;
+            min-height: 160px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            background: var(--accent);
+            color: #04052E; /* Dark text for contrast against the accent color */
+            border: none;
+            padding: 15px 35px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s ease;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-canvas"></div>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="blog.html">BLOG</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <main class="container">
+        
+        <header style="text-align: center; margin-bottom: 60px;" class="css-fade delay-1">
+            <h1>Contact Me</h1>
+            <p class="quote-text" style="font-size: 1.2rem;">😎<br><br>"I'd love to hear from you!"</p>
+        </header>
+
+        <div class="contact-layout">
+            
+            <div class="contact-info css-fade delay-2">
+                <div class="glass-card">
+                    <h2 style="color: var(--accent); margin-top: 0; font-size: 1.8rem;">Get in Touch</h2>
+                    <p class="descriptive-text" style="margin-bottom: 40px;">
+                        Whether you need someone to capture your next event, want to collaborate on a cool design project, or just want to chat about photography and art, I'd love to hear from you!
+                    </p>
+
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--text-main); margin: 0 0 5px 0; letter-spacing: 1px;">📞 LOCATION</h4>
+                        <p style="color: var(--text-sub); margin: 0;">Manado, North Sulawesi<br>Universitas Sam Ratulangi</p>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--text-main); margin: 0 0 5px 0; letter-spacing: 1px;">💌 EMAIL</h4>
+                        <p style="color: var(--text-sub); margin: 0;">ezrastevesimauw2@gmail.com</p>
+                    </div>
+    
+                    <hr style="border: none; border-top: 1px solid var(--glass-border); margin-bottom: 30px;">
+
+                   <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 5px;">
+                            <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/instagram-white-icon.png" width="20" alt="Instagram">
+                             <a href="https://www.instagram.com/itsezra_ffs/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; transition: 0.3s;">
+                             FOLLOW ON INSTAGRAM
+                         </a>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px; margin-top: 25px;">
+    <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/whatsapp-white-icon.png" width="20" alt="WhatsApp">
+    
+    <a href="https://wa.me/628114921000" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; transition: 0.3s;">
+        CHAT ON WHATSAPP
+    </a>
+</div>
+                </div>
+            </div>
+
+            <div class="contact-form-container css-fade delay-3">
+                <div class="glass-card">
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Message ready to send! (Connect your backend to activate)');">
+                        
+                        <div class="form-group">
+                            <label for="name">NAME</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">EMAIL ADDRESS</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">MESSAGE</label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer style="margin-top: 60px;">
+        &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
+    </footer>
+
+</body>
+</html>

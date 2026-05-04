@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ezra's Blog | Creative Journal</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+    <style>
+        .blog-layout { display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+        .blog-main { flex: 2.5; min-width: 300px; }
+        .blog-sidebar { flex: 1; min-width: 250px; position: sticky; top: 100px; height: max-content; }
+        .post-card { margin-bottom: 35px; padding: 35px; }
+        .post-title { color: var(--text-main); font-size: 1.8rem; margin: 0 0 10px 0; }
+        .post-date { color: var(--accent); font-size: 0.85rem; margin-bottom: 15px; letter-spacing: 1.5px; font-weight: 600; }
+        .sidebar-widget { margin-bottom: 30px; }
+        .sidebar-title { color: var(--accent); font-size: 1.2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; margin-bottom: 15px; }
+        .topic-list { list-style: none; padding: 0; margin: 0; }
+        .topic-list li { margin-bottom: 12px; color: var(--text-sub); }
+        .post-card p { margin-top: 0; margin-bottom: 15px; } 
+    </style>
+</head>
+<body>
+
+    <div id="bg-canvas"></div>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="blog.html" class="active">BLOG</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <main class="container">
+        <header style="text-align: center; margin-bottom: 50px;" class="css-fade delay-1">
+            <h1>The Visual Diary</h1>
+            <p class="quote-text" style="font-size: 1.2rem;">A collection of my latest designs, photo shoots, and creative thoughts.</p>
+        </header>
+
+        <div class="blog-layout">
+            
+            <div class="blog-main">
+                
+                <article class="glass-card post-card css-fade delay-2">
+                    <h2 class="post-title">Systems of Memory: Beyond the Shutter</h2>
+                    <div class="post-date">MARCH 28, 2026</div>
+                    
+                    <div class="descriptive-text">
+                        <p>In my role managing digital assets for <b>Blue Choir</b>, I've learned that documentation is a form of data architecture. Whether capturing a live performance or archiving visual history in <b>Google Drive</b>, the goal is to ensure that every asset is organized, secure, and accessible for the future.</p>
+                        
+                        <div class="extended-content">
+                            <p>This architectural approach requires more than just storage; it requires a deep understanding of metadata and retrieval systems. For an Informatics student, a photograph is a data point. By implementing strict naming conventions and categorized directories, we transform a simple collection of images into a functional resource that serves the organization's long-term needs.</p>
+                            <p>The security of these assets is paramount. By utilizing cloud-based synchronization and redundant backups, we protect the choir's history against hardware failure or data loss. In the end, we aren't just taking photos; we are building a digital legacy that remains high-fidelity and ready for the generations of students to come.</p>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Read More &darr;</button>
+                </article>
+
+                <article class="glass-card post-card css-fade delay-3">
+                    <h2 class="post-title">The Rhythm of Visual Identity</h2>
+                    <div class="post-date">MARCH 15, 2026</div>
+                    
+                    <div class="descriptive-text">
+                        <p>Managing a social media ecosystem involves more than just posting; it's about maintaining a consistent aesthetic across <b>Instagram and TikTok</b>. By curating high-fidelity graphic assets, we create a visual rhythm that defines the organization's presence in the digital world.</p>
+                        
+                        <div class="extended-content">
+                            <p>This rhythm is the heartbeat of our digital engagement. It means choosing the right color palettes, font pairings, and transition styles that speak the language of our audience. For the Blue Choir, this translates to a professional yet vibrant personality that is recognizable from the first millisecond of a scroll.</p>
+                            <p>Every asset we produce—whether it's a promotional reel or a simple recruitment graphic—is a piece of a larger puzzle. By maintaining this structural harmony across different platforms, we create an immersive environment that draws the community in and keeps them connected to our story.</p>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Read More &darr;</button>
+                </article>
+
+                <article class="glass-card post-card css-fade delay-4">
+                    <h2 class="post-title">Capturing Perspective: A Toraja Study</h2>
+                    <div class="post-date">MARCH 02, 2026</div>
+                    
+                    <div class="descriptive-text">
+                        <p>Photography is my way of exploring structural harmony. Documenting the unique architecture and cliff burial sites in Toraja was a study in perspective—balancing the raw beauty of nature with the precise geometry of human tradition.</p>
+                        
+                        <div class="extended-content">
+                            <p>In the heart of Toraja, the <i>Tongkonan</i> houses stand as masterpieces of traditional engineering. My goal was to capture how their sweeping roofs mirror the surrounding mountain peaks, showing a deliberate alignment between the environment and the craft. This is where logic meets art: the structural integrity required to build such monuments is as fascinating to me as the culture they represent.</p>
+                            <p>The burial sites carved into limestone cliffs provided a different challenge—capturing the verticality and weight of history. Through my camera lens, I explored how these sites have become part of the natural landscape itself over centuries. It is a powerful reminder that our documentation, like the structures themselves, serves as a bridge between the past and the future.</p>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Read More &darr;</button>
+                </article>
+
+                <article class="glass-card post-card css-fade delay-5">
+                    <h2 class="post-title">Visual Logic: Engineering the Graphic</h2>
+                    <div class="post-date">FEBRUARY 18, 2026</div>
+                    
+                    <div class="descriptive-text">
+                        <p>Graphic design is where informatics meets art. Creating high-impact visuals requires a logical understanding of hierarchy and space. My design process focuses on translating complex organizational messages into clean, high-fidelity graphics that command attention while maintaining functional clarity.</p>
+                        
+                        <div class="extended-content">
+                            <p>In my work for various projects and organizations, I treat the canvas like a user interface. Every element—from the weight of the stroke to the kerning of the typography—must serve a purpose. Whether I am designing a recruitment poster or a digital announcement, the logic remains the same: guide the viewer's eye through the data in a way that feels intuitive and effortless.</p>
+                            <p>I often find that the most effective designs are the ones that have been "engineered" rather than just "drawn." By applying grid systems and mathematical ratios to my layouts, I ensure a level of structural integrity that keeps the visual balanced across different screen sizes and print formats. For me, the ultimate goal of graphic design is to reduce noise and maximize communication, ensuring that the organization's voice is heard clearly in a crowded digital space.</p>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" onclick="toggleReadMore(this)">Read More &darr;</button>
+                </article>
+
+            </div>
+
+            <aside class="blog-sidebar css-fade delay-6">
+                <div class="glass-card">
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">About Me</h3>
+                        <p class="descriptive-text" style="font-size: 0.95rem;">
+                            <b>Ezra Steve Simauw</b><br><br>
+                            Informatics student at <b>UNSRAT</b>. Passionate about graphic design, photography, music, and visual storytelling.
+                        </p>
+                    </div>
+                    <div class="sidebar-widget" style="margin-bottom: 0;">
+                        <h3 class="sidebar-title">Topics</h3>
+                        <ul class="topic-list" style="font-size: 0.95rem;">
+                            <li>&bull; Photography &amp; Editing</li>
+                            <li>&bull; Social Media Identity</li>
+                            <li>&bull; Graphic Design</li>
+                            <li>&bull; Creative Process</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portraits | Ezra's Web</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&display=swap" rel="stylesheet">
+    
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            background-color: #030108; 
+            background-image: radial-gradient(circle at 50% 15%, #150930 0%, #030108 80%);
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 40px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            color: #7b8cff;
+        }
+
+        /* Gallery Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+
+        .photo-item {
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* --- LIGHTBOX (MODAL) STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(3, 1, 8, 0.95);
+            backdrop-filter: blur(10px);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            animation: zoomIn 0.3s ease;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #7b8cff;
+            padding: 15px 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.9); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-btn:hover {
+            color: #7b8cff;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="gallery.html" class="active">GALLERY</a>
+        <a href="blog.html">BLOG</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>  
+
+    <main class="container">
+        
+        <a href="gallery.html" class="back-link css-fade delay-1">&larr; BACK TO ALBUMS</a>
+
+        <div style="margin-top: 20px; margin-bottom: 40px;" class="css-fade delay-1">
+            <h1 style="font-family: 'Righteous', cursive; font-size: 3.5rem; margin-bottom: 10px; color: #7b8cff;">Portraits</h1>
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; max-width: 600px;">
+                Exploring the human element through different environments and moods. A personal collection of lifestyle photography, candid moments, and creative expressions.
+            </p>
+        </div>
+
+        <div class="photo-grid css-fade delay-2">
+            <div class="photo-item"><img src="Portrait/Ezra1.jpg" alt="THICF"></div>
+            <div class="photo-item"><img src="Portrait/Ezra2.jpg" alt="THICF Baliho"></div>
+            <div class="photo-item"><img src="Portrait/Ezra3.jpg" alt="THICF Candid"></div>
+            <div class="photo-item"><img src="Portrait/Ezra4.jpg" alt="Admiring Waterfall"></div>
+            <div class="photo-item"><img src="Portrait/Ezra5.jpeg" alt="Golden Hour"></div>
+            <div class="photo-item"><img src="Portrait/Ezra6.jpeg" alt="Jesus Blessing View"></div>
+            <div class="photo-item"><img src="Portrait/Ezra7.jpeg" alt="Cliffs"></div>
+        </div>
+
+    </main>
+
+    <div id="image-modal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="full-image">
+        <div id="caption"></div>
+    </div>
+
+    <footer style="text-align: center; padding: 30px; opacity: 0.7; font-size: 0.9rem; margin-top: 50px;">
+        &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("full-image");
+            const captionText = document.getElementById("caption");
+            const closeBtn = document.querySelector(".close-btn");
+            const images = document.querySelectorAll(".photo-item img");
+
+            images.forEach(img => {
+                img.addEventListener("click", function() {
+                    modal.style.display = "block";
+                    modalImg.src = this.src; 
+                    captionText.innerHTML = this.alt; 
+                });
+            });
+
+            closeBtn.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+
+            modal.addEventListener("click", function(e) {
+                if (e.target !== modalImg) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
