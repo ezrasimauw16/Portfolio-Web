@@ -3,92 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albums | Ezra's Web</title>
+    <title>Gallery | Ezra's Web</title>
     <link rel="stylesheet" href="style.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&display=swap" rel="stylesheet">
-    
     <script defer src="script.js"></script>
     <style>
-        body {
-            background-color: #030108; 
-            background-image: radial-gradient(circle at 50% 15%, #150930 0%, #030108 80%);
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: #fff;
-        }
-
-        /* ALBUM COVER GRID */
-        .albums-container {
+        .album-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+            gap: 30px;
+            margin-top: 50px;
             margin-bottom: 80px;
         }
 
         .album-card {
-            display: block;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
             overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: var(--text-main);
+            display: block;
         }
 
         .album-card:hover {
             transform: translateY(-10px);
-            border-color: rgba(123, 140, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(123, 140, 255, 0.2);
+            box-shadow: 0 15px 30px var(--glow);
         }
 
         .album-image {
+            width: 100%;
             height: 250px;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .album-image img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .album-card:hover .album-image img {
-            transform: scale(1.1);
         }
 
         .album-info {
-            padding: 30px 20px;
+            padding: 20px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .album-info h2 {
             font-family: 'Righteous', cursive;
-            font-size: 1.8rem;
-            color: #7b8cff;
+            color: var(--accent);
             margin-bottom: 10px;
+            font-size: 2rem;
             letter-spacing: 1px;
-            transition: color 0.3s;
         }
-
-        .album-card:hover .album-info h2 {
-            color: #ffffff;
-        }
-
+        
         .album-info p {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-sub);
             font-size: 0.95rem;
             line-height: 1.5;
         }
+
+        /* Override global h1 gradient */
+        h1 {
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: var(--accent);
+            color: var(--accent);
+            filter: none;
+        }
     </style>
+    <script>
+        const saved = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+    </script>
 </head>
 <body>
 
@@ -97,21 +78,17 @@
         <a href="gallery.html" class="active">GALLERY</a>
         <a href="blog.html">BLOG</a>
         <a href="contact.html">CONTACT</a>
-    </nav>  
+        </nav>  
 
     <main class="container">
-        
-        <div style="text-align: center; margin-top: 60px; margin-bottom: 40px;" class="css-fade delay-1">
-            <h1 style="font-family: 'Caveat', cursive; font-size: 4rem; margin-bottom: 10px; color: #fff;">My Creative Vault</h1>
-            <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">Select an album to explore my work.</p>
+        <div style="text-align: center; margin-top: 60px;" class="css-fade delay-1">
+            <h1 style="font-family: 'Caveat', cursive; font-size: 4.5rem; color: var(--accent); margin-bottom: 10px;">My Creative Vault</h1>            
+            <p style="color: var(--text-sub); font-size: 1.1rem;">Select an album to explore my work.</p>
         </div>
 
-        <div class="albums-container css-fade delay-2">
-            
+        <div class="album-container css-fade delay-2">
             <a href="album-photography.html" class="album-card">
-                <div class="album-image">
-                    <img src="Photography/Foto1.jpeg" alt="Photography Album Cover">
-                </div>
+                <img src="Photography/Foto.jpeg" alt="Photography" class="album-image" onerror="this.src='Foto.jpeg'">
                 <div class="album-info">
                     <h2>Photography</h2>
                     <p>A visual journey through traditional architecture, lush landscapes, and golden ocean sunsets.</p>
@@ -119,9 +96,7 @@
             </a>
 
             <a href="album-design.html" class="album-card">
-                <div class="album-image">
-                    <img src="Design/Design.jpeg" alt="Graphic Designs Album Cover">
-                </div>
+                <img src="Design/gallery8.png" alt="Graphic Designs" class="album-image">
                 <div class="album-info">
                     <h2>Graphic Designs</h2>
                     <p>Visual communication designed to connect. Featuring event posters, organizational announcements, ministry graphics, and personal milestones.</p>
@@ -129,22 +104,20 @@
             </a>
 
             <a href="album-portrait.html" class="album-card">
-                <div class="album-image">
-                    <img src="Portrait/Ezra5.jpeg" alt="Portraits Album Cover">
-                </div>
+                <img src="Portrait/Ezra5.jpeg" alt="Portraits" class="album-image">
                 <div class="album-info">
                     <h2>Portraits</h2>
                     <p>A collection of personal lifestyle portraits focusing on expression, natural lighting, and candid moments in various environments.</p>
                 </div>
             </a>
-
         </div>
-
     </main>
 
-    <footer style="text-align: center; padding: 30px; opacity: 0.7; font-size: 0.9rem; margin-top: 50px;">
+    <footer style="text-align: center; padding: 30px; opacity: 0.7; font-size: 0.9rem;">
         &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
     </footer>
 
+
+    <button id="back-to-top" title="Back to top">&#8679;</button>
 </body>
 </html>

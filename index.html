@@ -10,21 +10,11 @@
     
     <script defer src="script.js"></script>
     <style>
-        /* Exact dark indigo color match from the reference image */
-        body {
-            background-color: #030108; 
-            background-image: radial-gradient(circle at 50% 15%, #150930 0%, #030108 80%);
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }
-
+        
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-radius: 15px; 
+            border-radius: 15px;
         }
 
         .hero {
@@ -112,7 +102,7 @@
 
         .service-card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--glass-bg);
         }
 
         .service-card h3 {
@@ -137,7 +127,7 @@
             border-radius: 15px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -213,7 +203,7 @@
         }
 
         .text-gradient {
-            background: linear-gradient(to right, #ffffff, #7b8cff, #ffb27b);
+            background: linear-gradient(to right, var(--text-main), #7b8cff, #ffb27b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 30px rgba(123, 140, 255, 0.3);
@@ -254,7 +244,13 @@
     <a href="gallery.html">GALLERY</a>
     <a href="blog.html">BLOG</a>
     <a href="contact.html">CONTACT</a>
-   </nav>  
+           <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider"></div>
+            </label>
+        </div>
+    </nav>  
 
     <main class="container">
         
@@ -362,15 +358,15 @@
             </p>
             
             <div class="photo-grid">
-                <div class="photo-item">
+                <div class="photo-item no-overlay">
                     <img src="Photography/Foto1.jpeg" alt="Photography by Ezra">
                     <div class="photo-caption">Photography by Ezra</div>
                 </div>
-                <div class="photo-item">
+                <div class="photo-item no-overlay">
                     <img src="Portrait/Ezra3.jpg" alt="Ezra Portrait">
                     <div class="photo-caption">Ezra's Portrait</div>
                 </div>
-                <div class="photo-item">
+                <div class="photo-item no-overlay">
                     <img src="Photography/Sunset2.jpg" alt="Sunset Photography">
                     <div class="photo-caption">Sunset Photography</div>
                 </div>
@@ -385,7 +381,7 @@
             <div class="glass-card cta-card" style="text-align: center; padding: 70px 20px;">
                 <div class="cta-content">
                     <h2 class="text-gradient" style="font-size: 2.8rem; margin-top: 0; margin-bottom: 15px; font-family: 'Righteous', cursive;">Let's Create Something Great.</h2>
-                    <p class="descriptive-text" style="max-width: 600px; margin: 0 auto 30px auto; font-size: 1.15rem; color: #fff;">
+                    <p class="descriptive-text" style="max-width: 600px; margin: 0 auto 30px auto; font-size: 1.15rem; color: var(--text-main);">
                         Whether you need an eye for design, a lens for your event, or an informatics mindset for your project, I'm ready to collaborate.
                     </p>
                     <a href="contact.html" class="btn-pop">GET IN TOUCH</a>
@@ -399,5 +395,7 @@
         &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
     </footer>
 
+
+    <button id="back-to-top" title="Back to top">&#8679;</button>
 </body>
 </html>

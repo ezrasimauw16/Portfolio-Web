@@ -10,18 +10,11 @@
     
     <script defer src="script.js"></script>
     <style>
-        body {
-            background-color: #030108; 
-            background-image: radial-gradient(circle at 50% 15%, #150930 0%, #030108 80%);
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: #fff;
-        }
+        
 
         .back-link {
             display: inline-block;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-sub);
             text-decoration: none;
             font-weight: bold;
             font-size: 0.9rem;
@@ -31,7 +24,7 @@
         }
 
         .back-link:hover {
-            color: #7b8cff;
+            color: var(--accent);
         }
 
         /* Gallery Grid */
@@ -47,9 +40,9 @@
             height: 350px;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--glass-bg);
         }
 
         .photo-item img {
@@ -73,7 +66,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(3, 1, 8, 0.95);
+            background-color: var(--modal-bg);
             backdrop-filter: blur(10px);
             overflow: auto;
         }
@@ -87,6 +80,7 @@
             border-radius: 10px;
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
             animation: zoomIn 0.3s ease;
+            object-fit: contain;
         }
 
         #caption {
@@ -95,7 +89,7 @@
             width: 80%;
             max-width: 700px;
             text-align: center;
-            color: #7b8cff;
+            color: var(--accent);
             padding: 15px 0;
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
@@ -107,12 +101,40 @@
             from {transform: scale(0.9); opacity: 0;}
             to {transform: scale(1); opacity: 1;}
         }
+        @keyframes slideInRight {
+            from { transform: translateX(80px); opacity: 0; }
+            to   { transform: translateX(0);    opacity: 1; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-80px); opacity: 0; }
+            to   { transform: translateX(0);     opacity: 1; }
+        }
+        @keyframes slideOutLeft {
+            from { transform: translateX(0);     opacity: 1; }
+            to   { transform: translateX(-80px); opacity: 0; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0);    opacity: 1; }
+            to   { transform: translateX(80px); opacity: 0; }
+        }
+
+            to   { transform: translateX(0);    opacity: 1; }
+        }
+
+            to   { transform: translateX(0);     opacity: 1; }
+        }
+
+            to   { transform: translateX(-80px); opacity: 0; }
+        }
+
+            to   { transform: translateX(80px); opacity: 0; }
+        }
 
         .close-btn {
             position: absolute;
             top: 20px;
             right: 40px;
-            color: #ffffff;
+            color: var(--text-main);
             font-size: 40px;
             font-weight: bold;
             transition: 0.3s;
@@ -121,10 +143,46 @@
         }
 
         .close-btn:hover {
-            color: #7b8cff;
+            color: var(--accent);
             transform: scale(1.1);
         }
+
+        /* SLIDER ARROWS */
+        .prev-btn, .next-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            padding: 20px;
+            margin-top: -50px;
+            color: var(--text-sub);
+            font-weight: bold;
+            font-size: 40px;
+            transition: 0.3s ease;
+            user-select: none;
+            z-index: 1002;
+        }
+
+        .next-btn { right: 20px; }
+        .prev-btn { left: 20px; }
+
+        .prev-btn:hover, .next-btn:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        /* Override global h1 gradient — use solid accent color instead */
+        h1 {
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: var(--accent);
+            color: var(--accent);
+            filter: none;
+        }
     </style>
+    <script>
+        const saved = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+    </script>
 </head>
 <body>
 
@@ -133,15 +191,15 @@
         <a href="gallery.html" class="active">GALLERY</a>
         <a href="blog.html">BLOG</a>
         <a href="contact.html">CONTACT</a>
-    </nav>  
+        </nav>  
 
     <main class="container">
         
         <a href="gallery.html" class="back-link css-fade delay-1">&larr; BACK TO ALBUMS</a>
 
         <div style="margin-top: 20px; margin-bottom: 40px;" class="css-fade delay-1">
-            <h1 style="font-family: 'Righteous', cursive; font-size: 3.5rem; margin-bottom: 10px; color: #7b8cff;">Graphic Designs</h1>
-            <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; max-width: 600px;">
+            <h1 style="font-family: 'Righteous', cursive; font-size: 3.5rem; margin-bottom: 10px; color: var(--accent);">Graphic Designs</h1>
+            <p style="color: var(--text-sub); font-size: 1.1rem; max-width: 600px;">
                 Visual communication designed to connect and inspire the community. A collection of event posters, organizational recruitment graphics, ministry announcements, and personal tributes.
             </p>
         </div>
@@ -159,6 +217,9 @@
 
     <div id="image-modal" class="modal">
         <span class="close-btn">&times;</span>
+        <span class="prev-btn">&#10094;</span>
+        <span class="next-btn">&#10095;</span>
+        
         <img class="modal-content" id="full-image">
         <div id="caption"></div>
     </div>
@@ -173,14 +234,55 @@
             const modalImg = document.getElementById("full-image");
             const captionText = document.getElementById("caption");
             const closeBtn = document.querySelector(".close-btn");
+            const prevBtn = document.querySelector(".prev-btn");
+            const nextBtn = document.querySelector(".next-btn");
+            
             const images = document.querySelectorAll(".photo-item img");
+            let currentIndex = 0; 
 
-            images.forEach(img => {
+            function showImage(index, direction) {
+                // direction: 'next' slides left, 'prev' slides right, undefined = open (zoom)
+                if (direction === undefined) {
+                    modalImg.src = images[index].src;
+                    captionText.innerHTML = images[index].alt;
+                    modalImg.style.animation = 'zoomIn 0.3s ease';
+                    captionText.style.animation = 'zoomIn 0.3s ease';
+                    currentIndex = index;
+                    return;
+                }
+
+                const outAnim = direction === 'next' ? 'slideOutLeft 0.25s ease forwards' : 'slideOutRight 0.25s ease forwards';
+                const inAnim  = direction === 'next' ? 'slideInRight 0.3s ease forwards'  : 'slideInLeft 0.3s ease forwards';
+
+                modalImg.style.animation = outAnim;
+                captionText.style.animation = 'none';
+                captionText.style.opacity = '0';
+
+                setTimeout(() => {
+                    modalImg.src = images[index].src;
+                    captionText.innerHTML = images[index].alt;
+                    currentIndex = index;
+                    modalImg.style.animation = inAnim;
+                    captionText.style.animation = 'zoomIn 0.3s ease';
+                    captionText.style.opacity = '1';
+                }, 250);
+            }
+
+            images.forEach((img, index) => {
                 img.addEventListener("click", function() {
                     modal.style.display = "block";
-                    modalImg.src = this.src; 
-                    captionText.innerHTML = this.alt; 
+                    showImage(index, undefined);
                 });
+            });
+
+            nextBtn.addEventListener("click", function() {
+                let nextIndex = (currentIndex + 1) % images.length;
+                showImage(nextIndex, 'next');
+            });
+
+            prevBtn.addEventListener("click", function() {
+                let prevIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(prevIndex, 'prev');
             });
 
             closeBtn.addEventListener("click", function() {
@@ -188,12 +290,22 @@
             });
 
             modal.addEventListener("click", function(e) {
-                if (e.target !== modalImg) {
+                if (e.target === modal) {
                     modal.style.display = "none";
+                }
+            });
+
+            document.addEventListener("keydown", function(e) {
+                if (modal.style.display === "block") {
+                    if (e.key === "ArrowRight") nextBtn.click();
+                    if (e.key === "ArrowLeft") prevBtn.click();
+                    if (e.key === "Escape") closeBtn.click();
                 }
             });
         });
     </script>
 
+
+    <button id="back-to-top" title="Back to top">&#8679;</button>
 </body>
 </html>
