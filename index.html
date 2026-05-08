@@ -6,7 +6,7 @@
     <title>Ezra's Web | Portfolio</title>
     <link rel="stylesheet" href="style.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <script defer src="script.js"></script>
     <style>
@@ -234,8 +234,83 @@
             color: #030108;
         }
     </style>
+
+    <style id="preloader-style">
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg-color, #02010A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .preloader-shutter {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            animation: shutter-spin 1.2s ease-in-out infinite;
+        }
+        .blade {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: #7B8CFF;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            border-radius: 0 0 100% 0;
+            opacity: 0.85;
+        }
+        .blade:nth-child(1) { transform: rotate(0deg)   translateY(-100%); }
+        .blade:nth-child(2) { transform: rotate(60deg)  translateY(-100%); }
+        .blade:nth-child(3) { transform: rotate(120deg) translateY(-100%); }
+        .blade:nth-child(4) { transform: rotate(180deg) translateY(-100%); }
+        .blade:nth-child(5) { transform: rotate(240deg) translateY(-100%); }
+        .blade:nth-child(6) { transform: rotate(300deg) translateY(-100%); }
+        @keyframes shutter-spin {
+            0%   { transform: rotate(0deg)   scale(1);    }
+            50%  { transform: rotate(180deg) scale(0.85); }
+            100% { transform: rotate(360deg) scale(1);    }
+        }
+        .preloader-name {
+            font-family: 'Righteous', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            color: #7B8CFF;
+            margin: 0;
+            animation: pulse-fade 1.2s ease-in-out infinite;
+        }
+        @keyframes pulse-fade {
+            0%, 100% { opacity: 1;   }
+            50%       { opacity: 0.3; }
+        }
+    </style>
 </head>
 <body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-shutter">
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+            </div>
+            <p class="preloader-name">EZRA</p>
+        </div>
+    </div>
+
 
     <div id="bg-canvas"></div>
 
@@ -291,6 +366,25 @@
             </div>
         </section>
 
+
+        <!-- ABOUT ME TEASER -->
+        <section class="css-fade delay-2" style="margin-top: 100px;">
+            <div class="glass-card" style="padding: 50px 40px; display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
+                <img src="Portrait/Ezra5.jpeg" alt="Ezra Steve Simauw"
+                    style="width: 160px; height: 160px; object-fit: cover; object-position: center top;
+                           border-radius: 50%; border: 3px solid var(--glass-border);
+                           box-shadow: 0 0 30px var(--glow); flex-shrink: 0;">
+                <div style="flex: 1; min-width: 240px;">
+                    <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; color: var(--accent); margin: 0 0 10px 0;">WHO I AM</p>
+                    <h2 style="font-family: 'Righteous', cursive; color: var(--text-main); font-size: 2rem; margin: 0 0 16px 0; letter-spacing: 1px;">Artist. Student. Creator.</h2>
+                    <p class="descriptive-text" style="color: var(--text-sub); font-size: 1rem; line-height: 1.8; margin: 0 0 28px 0;">
+                        I'm a native of Manado studying Informatics at UNSRAT — but I've always been an artist first. Singer, dancer, photographer, designer, musician. I believe <b style="color: var(--text-main);">Informatics provides the skeleton, and art provides the soul.</b>
+                    </p>
+                    <a href="about.html" style="display: inline-block; color: var(--accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 3px; transition: 0.3s;">READ MY STORY &rarr;</a>
+                </div>
+            </div>
+        </section>
+
         <section class="experience-section css-fade delay-3">
             <h2 style="text-align: center; color: var(--accent); letter-spacing: 2px; margin-top: 60px;">ORGANIZATION EXPERIENCE</h2>
             
@@ -322,32 +416,54 @@
         </section>
 
         <section class="css-fade delay-3" style="margin-top: 100px;">
-            <h2 style="text-align: center; color: var(--accent); letter-spacing: 2px;">WHAT I DO</h2>
-            
-            <div class="services-grid">
-                <div class="glass-card service-card">
-                    <div style="font-size: 3rem; margin-bottom: 20px;">💡</div>
-                    <h3>Creative Tech</h3>
-                    <p class="descriptive-text" style="font-size: 0.95rem; color: var(--text-sub);">
-                        Bridging the gap between functional code and aesthetic design to build digital environments that just make sense.
-                    </p>
-                </div>
+            <h2 style="text-align: center; color: var(--accent); letter-spacing: 2px; margin-bottom: 10px;">WHAT I DO</h2>
+            <p style="text-align:center; color: var(--text-sub); font-size: 1rem; margin-bottom: 50px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                Three worlds. One person. Here's how I spend my time.
+            </p>
 
-                <div class="glass-card service-card">
+            <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+
+                <div class="glass-card service-card" style="position: relative; overflow: hidden; padding: 40px 30px;">
                     <div style="font-size: 3rem; margin-bottom: 20px;">📸</div>
-                    <h3>Photography</h3>
-                    <p class="descriptive-text" style="font-size: 0.95rem; color: var(--text-sub);">
-                        Capturing moments and telling stories through high-quality event, portrait, and street photography.
+                    <h3 style="color: var(--text-main); font-family: 'Righteous', cursive; font-size: 1.5rem; margin-bottom: 12px; letter-spacing: 1px;">Photography</h3>
+                    <p class="descriptive-text" style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.75;">
+                        From golden-hour portraits to traditional architecture and cascading waterfalls — I chase the light and frame the world the way I see it.
                     </p>
+                    <div style="margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">PORTRAIT</span>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">LANDSCAPE</span>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">EVENT</span>
+                    </div>
+                    <a href="album-photography.html" style="display: inline-block; margin-top: 24px; color: var(--accent); font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: 0.3s;">VIEW ALBUM &rarr;</a>
                 </div>
 
-                <div class="glass-card service-card">
+                <div class="glass-card service-card" style="position: relative; overflow: hidden; padding: 40px 30px;">
                     <div style="font-size: 3rem; margin-bottom: 20px;">🎨</div>
-                    <h3>Visual Design</h3>
-                    <p class="descriptive-text" style="font-size: 0.95rem; color: var(--text-sub);">
-                        Creating striking visual identities, layouts, and digital assets that communicate exactly the right message.
+                    <h3 style="color: var(--text-main); font-family: 'Righteous', cursive; font-size: 1.5rem; margin-bottom: 12px; letter-spacing: 1px;">Graphic Design</h3>
+                    <p class="descriptive-text" style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.75;">
+                        Event posters, recruitment graphics, ministry visuals — I treat design like a user interface. Every element serves a purpose, every layout is engineered to communicate.
                     </p>
+                    <div style="margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">POSTERS</span>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">BRANDING</span>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">SOCIAL MEDIA</span>
+                    </div>
+                    <a href="album-design.html" style="display: inline-block; margin-top: 24px; color: var(--accent); font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: 0.3s;">VIEW DESIGNS &rarr;</a>
                 </div>
+
+                <div class="glass-card service-card" style="position: relative; overflow: hidden; padding: 40px 30px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🎵</div>
+                    <h3 style="color: var(--text-main); font-family: 'Righteous', cursive; font-size: 1.5rem; margin-bottom: 12px; letter-spacing: 1px;">Music</h3>
+                    <p class="descriptive-text" style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.75;">
+                        Singer, dancer, pianist. Influenced by the precision of Michael Jackson and the harmonies of the Backstreet Boys, music is where my rhythm began — and it never stopped shaping everything else I create.
+                    </p>
+                    <div style="margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">VOCALS</span>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">PIANO</span>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 20px;">PERFORMANCE</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -397,5 +513,113 @@
 
 
     <button id="back-to-top" title="Back to top">&#8679;</button>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => preloader.classList.add('hidden'), 300);
+            }
+        });
+    </script>
+
+    <!-- EASTER EGG: Konami Code -->
+    <script>
+        (function() {
+            const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+            let pos = 0;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === KONAMI[pos]) {
+                    pos++;
+                    if (pos === KONAMI.length) {
+                        pos = 0;
+                        triggerEasterEgg();
+                    }
+                } else {
+                    pos = e.key === KONAMI[0] ? 1 : 0;
+                }
+            });
+
+            function triggerEasterEgg() {
+                // Toast message
+                const toast = document.createElement('div');
+                toast.id = 'egg-toast';
+                toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
+                Object.assign(toast.style, {
+                    position: 'fixed', bottom: '40px', left: '50%',
+                    transform: 'translateX(-50%) translateY(20px)',
+                    background: '#7B8CFF', color: '#04052E',
+                    fontFamily: "'Outfit', sans-serif", fontWeight: '700',
+                    fontSize: '0.95rem', letterSpacing: '0.5px',
+                    padding: '14px 28px', borderRadius: '40px',
+                    zIndex: '99999', opacity: '0',
+                    transition: 'opacity 0.4s ease, transform 0.4s ease',
+                    whiteSpace: 'nowrap', boxShadow: '0 0 30px rgba(123,140,255,0.6)'
+                });
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translateX(-50%) translateY(0)';
+                });
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(-50%) translateY(20px)';
+                    setTimeout(() => toast.remove(), 400);
+                }, 3500);
+
+                // Confetti burst
+                launchConfetti();
+            }
+
+            function launchConfetti() {
+                const colors = ['#7B8CFF','#ff7eb3','#fff176','#69ffb4','#ff9d4d','#c084fc'];
+                const count = 120;
+                for (let i = 0; i < count; i++) {
+                    const el = document.createElement('div');
+                    const size = Math.random() * 10 + 6;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const startX = Math.random() * window.innerWidth;
+                    const rotation = Math.random() * 720 - 360;
+                    const duration = Math.random() * 1500 + 1000;
+                    const delay = Math.random() * 400;
+                    Object.assign(el.style, {
+                        position: 'fixed',
+                        top: '-20px',
+                        left: startX + 'px',
+                        width: size + 'px',
+                        height: size + 'px',
+                        background: color,
+                        borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                        zIndex: '99998',
+                        opacity: '1',
+                        animation: `confetti-fall ${duration}ms ${delay}ms ease-in forwards`,
+                        transform: `rotate(0deg)`,
+                        pointerEvents: 'none',
+                    });
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), duration + delay + 100);
+                }
+
+                // Inject keyframes once
+                if (!document.getElementById('confetti-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'confetti-style';
+                    style.textContent = `
+                        @keyframes confetti-fall {
+                            0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+                            100% { transform: translateY(110vh) rotate(var(--r, 360deg)); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                // Set random rotation per piece via JS
+                document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
+                    el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

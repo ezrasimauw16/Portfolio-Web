@@ -6,7 +6,7 @@
     <title>Portraits | Ezra's Web</title>
     <link rel="stylesheet" href="style.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <script defer src="script.js"></script>
     <style>
@@ -27,35 +27,47 @@
             color: var(--accent);
         }
 
-        /* Gallery Grid */
+        
+        /* Masonry grid */
         .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            columns: 3;
+            column-gap: 16px;
             margin-top: 40px;
             margin-bottom: 80px;
         }
 
+        @media (max-width: 900px) {
+            .photo-grid { columns: 2; }
+        }
+        @media (max-width: 550px) {
+            .photo-grid { columns: 1; }
+        }
+
         .photo-item {
-            height: 350px;
+            break-inside: avoid;
+            margin-bottom: 16px;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--glass-border);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             background: var(--glass-bg);
+            height: auto;        /* override old fixed height */
         }
 
         .photo-item img {
             width: 100%;
-            height: 100%;
+            height: auto;        /* let images breathe naturally */
+            display: block;
             object-fit: cover;
+            object-position: center center;
             transition: transform 0.5s ease;
             cursor: pointer;
         }
 
         .photo-item:hover img {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
+
 
         /* --- LIGHTBOX (MODAL) STYLES --- */
         .modal {
@@ -130,6 +142,22 @@
             to   { transform: translateX(80px); opacity: 0; }
         }
 
+        #img-counter {
+            position: absolute;
+            top: 22px;
+            left: 40px;
+            color: var(--text-sub);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            z-index: 1001;
+            background: var(--glass-bg);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+
         .close-btn {
             position: absolute;
             top: 20px;
@@ -183,11 +211,87 @@
         const saved = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', saved);
     </script>
+
+    <style id="preloader-style">
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg-color, #02010A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .preloader-shutter {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            animation: shutter-spin 1.2s ease-in-out infinite;
+        }
+        .blade {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: #7B8CFF;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            border-radius: 0 0 100% 0;
+            opacity: 0.85;
+        }
+        .blade:nth-child(1) { transform: rotate(0deg)   translateY(-100%); }
+        .blade:nth-child(2) { transform: rotate(60deg)  translateY(-100%); }
+        .blade:nth-child(3) { transform: rotate(120deg) translateY(-100%); }
+        .blade:nth-child(4) { transform: rotate(180deg) translateY(-100%); }
+        .blade:nth-child(5) { transform: rotate(240deg) translateY(-100%); }
+        .blade:nth-child(6) { transform: rotate(300deg) translateY(-100%); }
+        @keyframes shutter-spin {
+            0%   { transform: rotate(0deg)   scale(1);    }
+            50%  { transform: rotate(180deg) scale(0.85); }
+            100% { transform: rotate(360deg) scale(1);    }
+        }
+        .preloader-name {
+            font-family: 'Righteous', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            color: #7B8CFF;
+            margin: 0;
+            animation: pulse-fade 1.2s ease-in-out infinite;
+        }
+        @keyframes pulse-fade {
+            0%, 100% { opacity: 1;   }
+            50%       { opacity: 0.3; }
+        }
+    </style>
 </head>
 <body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-shutter">
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+            </div>
+            <p class="preloader-name">EZRA</p>
+        </div>
+    </div>
+
 
     <nav>
         <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
         <a href="gallery.html" class="active">GALLERY</a>
         <a href="blog.html">BLOG</a>
         <a href="contact.html">CONTACT</a>
@@ -217,6 +321,7 @@
     </main>
 
     <div id="image-modal" class="modal">
+        <span id="img-counter">1 / 1</span>
         <span class="close-btn">&times;</span>
         <span class="prev-btn">&#10094;</span>
         <span class="next-btn">&#10095;</span>
@@ -262,6 +367,7 @@
                 setTimeout(() => {
                     modalImg.src = images[index].src;
                     captionText.innerHTML = images[index].alt;
+                    document.getElementById('img-counter').textContent = (index + 1) + ' / ' + images.length;
                     currentIndex = index;
                     modalImg.style.animation = inAnim;
                     captionText.style.animation = 'zoomIn 0.3s ease';
@@ -308,5 +414,113 @@
 
 
     <button id="back-to-top" title="Back to top">&#8679;</button>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => preloader.classList.add('hidden'), 300);
+            }
+        });
+    </script>
+
+    <!-- EASTER EGG: Konami Code -->
+    <script>
+        (function() {
+            const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+            let pos = 0;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === KONAMI[pos]) {
+                    pos++;
+                    if (pos === KONAMI.length) {
+                        pos = 0;
+                        triggerEasterEgg();
+                    }
+                } else {
+                    pos = e.key === KONAMI[0] ? 1 : 0;
+                }
+            });
+
+            function triggerEasterEgg() {
+                // Toast message
+                const toast = document.createElement('div');
+                toast.id = 'egg-toast';
+                toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
+                Object.assign(toast.style, {
+                    position: 'fixed', bottom: '40px', left: '50%',
+                    transform: 'translateX(-50%) translateY(20px)',
+                    background: '#7B8CFF', color: '#04052E',
+                    fontFamily: "'Outfit', sans-serif", fontWeight: '700',
+                    fontSize: '0.95rem', letterSpacing: '0.5px',
+                    padding: '14px 28px', borderRadius: '40px',
+                    zIndex: '99999', opacity: '0',
+                    transition: 'opacity 0.4s ease, transform 0.4s ease',
+                    whiteSpace: 'nowrap', boxShadow: '0 0 30px rgba(123,140,255,0.6)'
+                });
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translateX(-50%) translateY(0)';
+                });
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(-50%) translateY(20px)';
+                    setTimeout(() => toast.remove(), 400);
+                }, 3500);
+
+                // Confetti burst
+                launchConfetti();
+            }
+
+            function launchConfetti() {
+                const colors = ['#7B8CFF','#ff7eb3','#fff176','#69ffb4','#ff9d4d','#c084fc'];
+                const count = 120;
+                for (let i = 0; i < count; i++) {
+                    const el = document.createElement('div');
+                    const size = Math.random() * 10 + 6;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const startX = Math.random() * window.innerWidth;
+                    const rotation = Math.random() * 720 - 360;
+                    const duration = Math.random() * 1500 + 1000;
+                    const delay = Math.random() * 400;
+                    Object.assign(el.style, {
+                        position: 'fixed',
+                        top: '-20px',
+                        left: startX + 'px',
+                        width: size + 'px',
+                        height: size + 'px',
+                        background: color,
+                        borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                        zIndex: '99998',
+                        opacity: '1',
+                        animation: `confetti-fall ${duration}ms ${delay}ms ease-in forwards`,
+                        transform: `rotate(0deg)`,
+                        pointerEvents: 'none',
+                    });
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), duration + delay + 100);
+                }
+
+                // Inject keyframes once
+                if (!document.getElementById('confetti-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'confetti-style';
+                    style.textContent = `
+                        @keyframes confetti-fall {
+                            0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+                            100% { transform: translateY(110vh) rotate(var(--r, 360deg)); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                // Set random rotation per piece via JS
+                document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
+                    el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

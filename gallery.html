@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Ezra's Web</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script defer src="script.js"></script>
     <style>
         .album-container {
@@ -51,6 +51,19 @@
             letter-spacing: 1px;
         }
         
+
+        .album-count {
+            display: inline-block;
+            background: var(--accent);
+            color: #04052E;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
         .album-info p {
             color: var(--text-sub);
             font-size: 0.95rem;
@@ -70,11 +83,87 @@
         const saved = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', saved);
     </script>
+
+    <style id="preloader-style">
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg-color, #02010A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .preloader-shutter {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            animation: shutter-spin 1.2s ease-in-out infinite;
+        }
+        .blade {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: #7B8CFF;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            border-radius: 0 0 100% 0;
+            opacity: 0.85;
+        }
+        .blade:nth-child(1) { transform: rotate(0deg)   translateY(-100%); }
+        .blade:nth-child(2) { transform: rotate(60deg)  translateY(-100%); }
+        .blade:nth-child(3) { transform: rotate(120deg) translateY(-100%); }
+        .blade:nth-child(4) { transform: rotate(180deg) translateY(-100%); }
+        .blade:nth-child(5) { transform: rotate(240deg) translateY(-100%); }
+        .blade:nth-child(6) { transform: rotate(300deg) translateY(-100%); }
+        @keyframes shutter-spin {
+            0%   { transform: rotate(0deg)   scale(1);    }
+            50%  { transform: rotate(180deg) scale(0.85); }
+            100% { transform: rotate(360deg) scale(1);    }
+        }
+        .preloader-name {
+            font-family: 'Righteous', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            color: #7B8CFF;
+            margin: 0;
+            animation: pulse-fade 1.2s ease-in-out infinite;
+        }
+        @keyframes pulse-fade {
+            0%, 100% { opacity: 1;   }
+            50%       { opacity: 0.3; }
+        }
+    </style>
 </head>
 <body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-shutter">
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+            </div>
+            <p class="preloader-name">EZRA</p>
+        </div>
+    </div>
+
 
     <nav>
         <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
         <a href="gallery.html" class="active">GALLERY</a>
         <a href="blog.html">BLOG</a>
         <a href="contact.html">CONTACT</a>
@@ -90,6 +179,7 @@
             <a href="album-photography.html" class="album-card">
                 <img src="Photography/Foto.jpeg" alt="Photography" class="album-image" onerror="this.src='Foto.jpeg'">
                 <div class="album-info">
+                    <div><span class="album-count">12 PHOTOS</span></div>
                     <h2>Photography</h2>
                     <p>A visual journey through traditional architecture, lush landscapes, and golden ocean sunsets.</p>
                 </div>
@@ -98,6 +188,7 @@
             <a href="album-design.html" class="album-card">
                 <img src="Design/gallery8.png" alt="Graphic Designs" class="album-image">
                 <div class="album-info">
+                    <div><span class="album-count">7 DESIGNS</span></div>
                     <h2>Graphic Designs</h2>
                     <p>Visual communication designed to connect. Featuring event posters, organizational announcements, ministry graphics, and personal milestones.</p>
                 </div>
@@ -106,6 +197,7 @@
             <a href="album-portrait.html" class="album-card">
                 <img src="Portrait/Ezra5.jpeg" alt="Portraits" class="album-image">
                 <div class="album-info">
+                    <div><span class="album-count">7 PORTRAITS</span></div>
                     <h2>Portraits</h2>
                     <p>A collection of personal lifestyle portraits focusing on expression, natural lighting, and candid moments in various environments.</p>
                 </div>
@@ -119,5 +211,113 @@
 
 
     <button id="back-to-top" title="Back to top">&#8679;</button>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => preloader.classList.add('hidden'), 300);
+            }
+        });
+    </script>
+
+    <!-- EASTER EGG: Konami Code -->
+    <script>
+        (function() {
+            const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+            let pos = 0;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === KONAMI[pos]) {
+                    pos++;
+                    if (pos === KONAMI.length) {
+                        pos = 0;
+                        triggerEasterEgg();
+                    }
+                } else {
+                    pos = e.key === KONAMI[0] ? 1 : 0;
+                }
+            });
+
+            function triggerEasterEgg() {
+                // Toast message
+                const toast = document.createElement('div');
+                toast.id = 'egg-toast';
+                toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
+                Object.assign(toast.style, {
+                    position: 'fixed', bottom: '40px', left: '50%',
+                    transform: 'translateX(-50%) translateY(20px)',
+                    background: '#7B8CFF', color: '#04052E',
+                    fontFamily: "'Outfit', sans-serif", fontWeight: '700',
+                    fontSize: '0.95rem', letterSpacing: '0.5px',
+                    padding: '14px 28px', borderRadius: '40px',
+                    zIndex: '99999', opacity: '0',
+                    transition: 'opacity 0.4s ease, transform 0.4s ease',
+                    whiteSpace: 'nowrap', boxShadow: '0 0 30px rgba(123,140,255,0.6)'
+                });
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translateX(-50%) translateY(0)';
+                });
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(-50%) translateY(20px)';
+                    setTimeout(() => toast.remove(), 400);
+                }, 3500);
+
+                // Confetti burst
+                launchConfetti();
+            }
+
+            function launchConfetti() {
+                const colors = ['#7B8CFF','#ff7eb3','#fff176','#69ffb4','#ff9d4d','#c084fc'];
+                const count = 120;
+                for (let i = 0; i < count; i++) {
+                    const el = document.createElement('div');
+                    const size = Math.random() * 10 + 6;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const startX = Math.random() * window.innerWidth;
+                    const rotation = Math.random() * 720 - 360;
+                    const duration = Math.random() * 1500 + 1000;
+                    const delay = Math.random() * 400;
+                    Object.assign(el.style, {
+                        position: 'fixed',
+                        top: '-20px',
+                        left: startX + 'px',
+                        width: size + 'px',
+                        height: size + 'px',
+                        background: color,
+                        borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                        zIndex: '99998',
+                        opacity: '1',
+                        animation: `confetti-fall ${duration}ms ${delay}ms ease-in forwards`,
+                        transform: `rotate(0deg)`,
+                        pointerEvents: 'none',
+                    });
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), duration + delay + 100);
+                }
+
+                // Inject keyframes once
+                if (!document.getElementById('confetti-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'confetti-style';
+                    style.textContent = `
+                        @keyframes confetti-fall {
+                            0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+                            100% { transform: translateY(110vh) rotate(var(--r, 360deg)); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                // Set random rotation per piece via JS
+                document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
+                    el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

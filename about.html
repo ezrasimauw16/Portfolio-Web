@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Ezra's Web</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@1,700&family=Righteous&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script defer src="script.js"></script>
+    <style>
+        h1 {
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: var(--accent);
+            color: var(--accent);
+            filter: none;
+        }
+
+        /* ── HERO ── */
+        .about-hero {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            margin-top: 70px;
+            flex-wrap: wrap;
+        }
+
+        .about-photo-wrap {
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .about-photo {
+            width: 280px;
+            height: 340px;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 20px;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 0 40px var(--glow);
+            display: block;
+        }
+
+        /* Accent corner decoration */
+        .about-photo-wrap::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 60px;
+            height: 60px;
+            border-top: 3px solid var(--accent);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px 0 0 0;
+        }
+        .about-photo-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            border-bottom: 3px solid var(--accent);
+            border-right: 3px solid var(--accent);
+            border-radius: 0 0 4px 0;
+        }
+
+        .about-bio {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .about-bio h1 {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0 0 6px 0;
+        }
+
+        .about-bio .subtitle {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .about-bio p {
+            color: var(--text-sub);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+
+        .about-bio p b {
+            color: var(--text-main);
+        }
+
+
+        /* ── MUSIC WIDGET ── */
+        .music-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .music-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--glow);
+        }
+        .music-card-art {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .music-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .music-card-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 3px;
+        }
+        .music-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .music-card-artist {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            margin-top: 2px;
+        }
+        .music-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        .music-bar span {
+            display: block;
+            width: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: music-bounce 1.2s ease-in-out infinite;
+        }
+        .music-bar span:nth-child(1) { height: 8px;  animation-delay: 0s; }
+        .music-bar span:nth-child(2) { height: 14px; animation-delay: 0.2s; }
+        .music-bar span:nth-child(3) { height: 10px; animation-delay: 0.4s; }
+        .music-bar span:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+        @keyframes music-bounce {
+            0%, 100% { transform: scaleY(1);   }
+            50%       { transform: scaleY(0.3); }
+        }
+
+        /* ── VINYL ALBUMS ── */
+        .album-vinyl {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: default;
+        }
+        .vinyl-art {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 3px solid var(--glass-border);
+            box-shadow: 0 0 25px var(--glow);
+            transition: transform 0.6s ease, box-shadow 0.3s ease;
+        }
+        .album-vinyl:hover .vinyl-art {
+            transform: rotate(15deg) scale(1.05);
+            box-shadow: 0 0 40px var(--glow);
+        }
+        .vinyl-hole {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+        }
+        .vinyl-info {
+            text-align: center;
+        }
+        /* ── QUICK FACTS ── */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 60px;
+        }
+
+        .fact-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px var(--glow);
+        }
+
+        .fact-icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .fact-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .fact-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* ── INFLUENCES ── */
+        .influences-section {
+            margin-top: 80px;
+        }
+
+        .section-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .influence-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .influence-tag {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            padding: 8px 18px;
+            border-radius: 30px;
+            transition: 0.3s ease;
+        }
+
+        .influence-tag:hover {
+            background: var(--accent);
+            color: #04052E;
+            border-color: var(--accent);
+        }
+
+        /* ── PHILOSOPHY QUOTE ── */
+        .philosophy {
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+
+        .philosophy-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-style: italic;
+            color: var(--text-main);
+            line-height: 1.6;
+            border-left: 4px solid var(--accent);
+            padding-left: 28px;
+            margin: 0;
+            box-shadow: -4px 0 20px var(--glow);
+        }
+
+        .philosophy-quote span {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-style: normal;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-top: 16px;
+        }
+
+        /* ── CTA ── */
+        .about-cta {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .about-btn {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 12px 26px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            border: 1px solid var(--glass-border);
+        }
+
+        .about-btn.primary {
+            background: var(--accent);
+            color: #04052E;
+            border-color: var(--accent);
+        }
+
+        .about-btn.primary:hover {
+            background: #fff;
+            box-shadow: 0 0 20px var(--glow);
+            transform: translateY(-3px);
+        }
+
+        .about-btn.secondary {
+            color: var(--accent);
+            background: transparent;
+        }
+
+        .about-btn.secondary:hover {
+            background: var(--glass-bg);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 600px) {
+            .about-photo { width: 100%; height: 300px; }
+            .about-photo-wrap { width: 100%; }
+        }
+    </style>
+    <style id="preloader-style">
+        #preloader {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--bg-color, #02010A);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .preloader-inner { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .preloader-shutter { width: 60px; height: 60px; position: relative; animation: shutter-spin 1.2s ease-in-out infinite; }
+        .blade { position: absolute; width: 50%; height: 50%; background: #7B8CFF; top: 50%; left: 50%; transform-origin: 0 0; border-radius: 0 0 100% 0; opacity: 0.85; }
+        .blade:nth-child(1) { transform: rotate(0deg) translateY(-100%); }
+        .blade:nth-child(2) { transform: rotate(60deg) translateY(-100%); }
+        .blade:nth-child(3) { transform: rotate(120deg) translateY(-100%); }
+        .blade:nth-child(4) { transform: rotate(180deg) translateY(-100%); }
+        .blade:nth-child(5) { transform: rotate(240deg) translateY(-100%); }
+        .blade:nth-child(6) { transform: rotate(300deg) translateY(-100%); }
+        @keyframes shutter-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(0.85); } 100% { transform: rotate(360deg) scale(1); } }
+        .preloader-name { font-family: 'Righteous', cursive; font-size: 1.1rem; letter-spacing: 6px; color: #7B8CFF; margin: 0; animation: pulse-fade 1.2s ease-in-out infinite; }
+        @keyframes pulse-fade { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+    <script>
+        const saved = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+    </script>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-shutter">
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+                <div class="blade"></div><div class="blade"></div>
+            </div>
+            <p class="preloader-name">EZRA</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="about.html" class="active">ABOUT</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="blog.html">BLOG</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <main class="container">
+
+        <!-- HERO -->
+        <div class="about-hero css-fade delay-1">
+            <div class="about-photo-wrap">
+                <img src="Portrait/Ezra5.jpeg" alt="Ezra Steve Simauw" class="about-photo">
+            </div>
+
+            <div class="about-bio">
+                <p class="subtitle">INFORMATICS STUDENT · UNSRAT</p>
+                <h1>Ezra Steve Simauw.</h1>
+
+                <p>I have always been an <b>artist by nature</b>. Long before I knew what a line of code was, my world was defined by the scratch of a pencil on paper and the melodies I found on the <b>piano and guitar</b>. As a native of Manado currently studying Informatics at UNSRAT, I'll be the first to admit that my path hasn't been a straight line — I chose the future, but I never lost the passion.</p>
+
+                <p>That choice made me a <b>"flexible" creator</b> in every sense of the word. I am a singer, a dancer, and a musician; a photographer, a graphic designer, and a video editor. My musical influences — from the timeless precision of <b>Michael Jackson and the Jackson 5</b> to the nostalgic harmonies of the <b>Backstreet Boys</b> — infuse my visual work with rhythm and energy. I don't just see a design or a photograph; I <i>feel</i> the tempo and the groove of the composition.</p>
+
+                <p>To me, <b>Informatics provides the skeleton, and art provides the soul.</b> My technical studies taught me a level of logic and meticulousness that helps me design digital experiences that aren't just pretty, but functional. I refuse to be labeled as "just" a student or "just" an artist. I am a <b>multidisciplinary creator</b> who believes that logic and creativity are two sides of the same coin.</p>
+
+                <div class="about-cta">
+                    <a href="gallery.html" class="about-btn primary">VIEW MY WORK</a>
+                    <a href="contact.html" class="about-btn secondary">GET IN TOUCH</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK FACTS -->
+        <div class="facts-grid css-fade delay-2">
+            <div class="fact-card">
+                <span class="fact-icon">🎓</span>
+                <div class="fact-label">UNIVERSITY</div>
+                <div class="fact-value">UNSRAT</div>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">📍</span>
+                <div class="fact-label">LOCATION</div>
+                <div class="fact-value">Manado, Sulawesi</div>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">🎵</span>
+                <div class="fact-label">PASSION</div>
+                <div class="fact-value">Music & Visual Art</div>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">📸</span>
+                <div class="fact-label">SPECIALTY</div>
+                <div class="fact-value">Photography & Design</div>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">💻</span>
+                <div class="fact-label">MAJOR</div>
+                <div class="fact-value">Informatics Engineering</div>
+            </div>
+        </div>
+
+        <!-- INFLUENCES -->
+        <div class="influences-section css-fade delay-3">
+            <p class="section-label">INFLUENCES & INSPIRATIONS</p>
+            <div class="influence-list">
+                <span class="influence-tag">Michael Jackson</span>
+                <span class="influence-tag">Backstreet Boys</span>
+                <span class="influence-tag">Traditional Architecture</span>
+                <span class="influence-tag">Natural Light</span>
+                <span class="influence-tag">Blue Choir</span>
+                <span class="influence-tag">Grid Systems</span>
+                <span class="influence-tag">Film Photography</span>
+                <span class="influence-tag">Rhythm & Harmony</span>
+            </div>
+        </div>
+
+        <!-- PHILOSOPHY QUOTE -->
+        <div class="philosophy css-fade delay-4">
+            <blockquote class="philosophy-quote">
+                "Informatics provides the structure while art provides the soul. You don't have to choose between a creative heart and a technical mind — just be flexible enough to let the two worlds collide."
+                <span>— EZRA STEVE SIMAUW</span>
+            </blockquote>
+        </div>
+
+
+        <!-- MUSIC TASTE -->
+        <div class="css-fade delay-5" style="margin-top: 80px; margin-bottom: 80px;">
+            <p class="section-label">MY MUSIC TASTE</p>
+            <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 30px; max-width: 500px;">
+                The soundtrack behind everything I create. All-time favorite: <b style="color: var(--text-main);">Michael Jackson</b>.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px;">
+
+                <div class="music-card">
+                    <div class="music-card-art" style="background: linear-gradient(135deg, #1a1a2e, #3a0050);">
+                        <span style="font-size:2.2rem;">🎤</span>
+                    </div>
+                    <div class="music-card-info">
+                        <div class="music-card-label">MOST PLAYED</div>
+                        <div class="music-card-title">Drunk Text</div>
+                        <div class="music-card-artist">Henry Moodie</div>
+                    </div>
+                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
+                </div>
+
+                <div class="music-card">
+                    <div class="music-card-art" style="background: linear-gradient(135deg, #001a3a, #003a6e);">
+                        <span style="font-size:2.2rem;">🎵</span>
+                    </div>
+                    <div class="music-card-info">
+                        <div class="music-card-label">ON REPEAT</div>
+                        <div class="music-card-title">Drowning</div>
+                        <div class="music-card-artist">Backstreet Boys</div>
+                    </div>
+                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
+                </div>
+
+                <div class="music-card">
+                    <div class="music-card-art" style="background: linear-gradient(135deg, #1a0a00, #4a2000);">
+                        <span style="font-size:2.2rem;">🕺</span>
+                    </div>
+                    <div class="music-card-info">
+                        <div class="music-card-label">ALL-TIME CLASSIC</div>
+                        <div class="music-card-title">Billie Jean</div>
+                        <div class="music-card-artist">Michael Jackson</div>
+                    </div>
+                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
+                </div>
+
+                <div class="music-card">
+                    <div class="music-card-art" style="background: linear-gradient(135deg, #0a1a0a, #1a4a1a);">
+                        <span style="font-size:2.2rem;">🎹</span>
+                    </div>
+                    <div class="music-card-info">
+                        <div class="music-card-label">HIDDEN GEM</div>
+                        <div class="music-card-title">I Think They Call This Love</div>
+                        <div class="music-card-artist">Matthew Ifield</div>
+                    </div>
+                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
+                </div>
+
+                <div class="music-card">
+                    <div class="music-card-art" style="background: linear-gradient(135deg, #1a0a1a, #4a004a);">
+                        <span style="font-size:2.2rem;">🎶</span>
+                    </div>
+                    <div class="music-card-info">
+                        <div class="music-card-label">CHILDHOOD ANTHEM</div>
+                        <div class="music-card-title">I Want You Back</div>
+                        <div class="music-card-artist">Jackson 5</div>
+                    </div>
+                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
+                </div>
+
+            </div>
+
+            <p class="section-label" style="margin-top: 50px;">FAVORITE ALBUMS</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+                <div class="album-vinyl">
+                    <div class="vinyl-art" style="background: linear-gradient(135deg, #0a0a0a, #2a0000);">
+                        <span style="font-size: 2.5rem;">🕺</span>
+                        <div class="vinyl-hole"></div>
+                    </div>
+                    <div class="vinyl-info">
+                        <div style="font-weight: 700; color: var(--text-main); font-size: 1rem;">Thriller</div>
+                        <div style="color: var(--text-sub); font-size: 0.82rem; letter-spacing: 1px;">MICHAEL JACKSON · 1982</div>
+                    </div>
+                </div>
+
+                <div class="album-vinyl">
+                    <div class="vinyl-art" style="background: linear-gradient(135deg, #0a0a0a, #00002a);">
+                        <span style="font-size: 2.5rem;">🎩</span>
+                        <div class="vinyl-hole"></div>
+                    </div>
+                    <div class="vinyl-info">
+                        <div style="font-weight: 700; color: var(--text-main); font-size: 1rem;">Bad</div>
+                        <div style="color: var(--text-sub); font-size: 0.82rem; letter-spacing: 1px;">MICHAEL JACKSON · 1987</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 30px; opacity: 0.7; font-size: 0.9rem;">
+        &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
+    </footer>
+
+    <button id="back-to-top" title="Back to top">&#8679;</button>
+
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) setTimeout(() => preloader.classList.add('hidden'), 300);
+        });
+    </script>
+
+    <!-- EASTER EGG: Konami Code -->
+    <script>
+        (function() {
+            const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+            let pos = 0;
+            document.addEventListener('keydown', (e) => {
+                if (e.key === KONAMI[pos]) { pos++; if (pos === KONAMI.length) { pos = 0; triggerEasterEgg(); } }
+                else { pos = e.key === KONAMI[0] ? 1 : 0; }
+            });
+            function triggerEasterEgg() {
+                const toast = document.createElement('div');
+                toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
+                Object.assign(toast.style, { position:'fixed', bottom:'40px', left:'50%', transform:'translateX(-50%) translateY(20px)', background:'#7B8CFF', color:'#04052E', fontFamily:"'Outfit', sans-serif", fontWeight:'700', fontSize:'0.95rem', letterSpacing:'0.5px', padding:'14px 28px', borderRadius:'40px', zIndex:'99999', opacity:'0', transition:'opacity 0.4s ease, transform 0.4s ease', whiteSpace:'nowrap', boxShadow:'0 0 30px rgba(123,140,255,0.6)' });
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => { toast.style.opacity='1'; toast.style.transform='translateX(-50%) translateY(0)'; });
+                setTimeout(() => { toast.style.opacity='0'; toast.style.transform='translateX(-50%) translateY(20px)'; setTimeout(() => toast.remove(), 400); }, 3500);
+                const colors = ['#7B8CFF','#ff7eb3','#fff176','#69ffb4','#ff9d4d','#c084fc'];
+                for (let i = 0; i < 120; i++) {
+                    const el = document.createElement('div');
+                    const size = Math.random()*10+6, color = colors[Math.floor(Math.random()*colors.length)];
+                    const duration = Math.random()*1500+1000, delay = Math.random()*400;
+                    Object.assign(el.style, { position:'fixed', top:'-20px', left:(Math.random()*window.innerWidth)+'px', width:size+'px', height:size+'px', background:color, borderRadius:Math.random()>0.5?'50%':'2px', zIndex:'99998', animation:`confetti-fall ${duration}ms ${delay}ms ease-in forwards`, pointerEvents:'none' });
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), duration+delay+100);
+                }
+                if (!document.getElementById('confetti-style')) {
+                    const s = document.createElement('style'); s.id='confetti-style';
+                    s.textContent='@keyframes confetti-fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}';
+                    document.head.appendChild(s);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
