@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     })();
 
-});
+
 
     /* ============================================
        HAMBURGER MENU
@@ -442,30 +442,46 @@ document.addEventListener("DOMContentLoaded", () => {
         const navLinks  = document.querySelector('.nav-links');
         if (!hamburger || !navLinks) return;
 
-        hamburger.addEventListener('click', () => {
-            const isOpen = hamburger.classList.toggle('open');
-            navLinks.classList.toggle('open', isOpen);
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+        function closeMenu() {
+            hamburger.classList.remove('open');
+            navLinks.classList.remove('open');
+        }
+
+        function openMenu() {
+            hamburger.classList.add('open');
+            navLinks.classList.add('open');
+        }
+
+        // Toggle on hamburger click — stop propagation so the
+        // document click listener doesn't immediately close it
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburger.classList.contains('open') ? closeMenu() : openMenu();
         });
 
-        // Close on nav link click
+        // Close when a nav link is tapped
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
-                document.body.style.overflow = '';
-            });
+            link.addEventListener('click', closeMenu);
         });
 
-        // Close on outside click
+        // Close when tapping outside the overlay
         document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
-                document.body.style.overflow = '';
+            if (navLinks.classList.contains('open') &&
+                !navLinks.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+                closeMenu();
             }
         });
     })();
+
+});
 
 
     /* ============================================

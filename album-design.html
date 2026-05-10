@@ -86,12 +86,14 @@
 
         .modal-content {
             display: block;
-            max-width: 80vw;
-            max-height: 78vh;
+            max-width: 88vw;
+            max-height: 75vh;
+            width: auto;
+            height: auto;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(123, 140, 255, 0.35), 0 0 120px rgba(123, 140, 255, 0.15);
-            animation: zoomIn 0.3s ease;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(123, 140, 255, 0.35);
             object-fit: contain;
+            transition: opacity 0.25s ease;
         }
 
         #caption {
@@ -109,8 +111,8 @@
         }
 
         @keyframes zoomIn {
-            from {transform: scale(0.9); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
+            from { opacity: 0; }
+            to   { opacity: 1; }
         }
         @keyframes slideInRight {
             from { transform: translateX(80px); opacity: 0; }
@@ -135,6 +137,10 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
+            max-width: 100%;
+            max-height: 90vh;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
         #img-counter {
             position: absolute;
@@ -272,6 +278,8 @@
 </head>
 <body>
     
+    <div id="bg-canvas"></div>
+
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -353,33 +361,28 @@
             let currentIndex = 0; 
 
             function showImage(index, direction) {
-                
+                const counter = document.getElementById('img-counter');
                 if (direction === undefined) {
+                    modalImg.style.opacity = '0';
                     modalImg.src = images[index].src;
                     captionText.innerHTML = images[index].alt;
-                    document.getElementById('img-counter').textContent = (index + 1) + ' / ' + images.length;
-                    modalImg.style.animation = 'zoomIn 0.3s ease';
-                    captionText.style.animation = 'zoomIn 0.3s ease';
+                    counter.textContent = (index + 1) + ' / ' + images.length;
                     currentIndex = index;
+                    modalImg.onload = () => { modalImg.style.opacity = '1'; };
+                    if (modalImg.complete) modalImg.style.opacity = '1';
                     return;
                 }
-
-                const outAnim = direction === 'next' ? 'slideOutLeft 0.25s ease forwards' : 'slideOutRight 0.25s ease forwards';
-                const inAnim  = direction === 'next' ? 'slideInRight 0.3s ease forwards'  : 'slideInLeft 0.3s ease forwards';
-
-                modalImg.style.animation = outAnim;
-                captionText.style.animation = 'none';
+                modalImg.style.opacity = '0';
                 captionText.style.opacity = '0';
-
                 setTimeout(() => {
                     modalImg.src = images[index].src;
                     captionText.innerHTML = images[index].alt;
-                    document.getElementById('img-counter').textContent = (index + 1) + ' / ' + images.length;
+                    counter.textContent = (index + 1) + ' / ' + images.length;
                     currentIndex = index;
-                    modalImg.style.animation = inAnim;
-                    captionText.style.animation = 'zoomIn 0.3s ease';
+                    modalImg.onload = () => { modalImg.style.opacity = '1'; };
+                    if (modalImg.complete) modalImg.style.opacity = '1';
                     captionText.style.opacity = '1';
-                }, 250);
+                }, 220);
             }
 
             images.forEach((img, index) => {

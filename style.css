@@ -913,37 +913,11 @@ footer {
     .lb-next { right: 8px; }
 }
 
+/* ============================================
+   HAMBURGER MENU
+   ============================================ */
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    z-index: 1100;
-    background: none;
-    border: none;
-    padding: 4px;
-    margin-left: auto;
-    flex-shrink: 0;
-}
-
-.hamburger span {
-    display: block;
-    height: 2px;
-    width: 100%;
-    background: var(--text-main);
-    border-radius: 2px;
-    transition: transform 0.35s ease, opacity 0.35s ease, background 0.3s ease;
-    transform-origin: center;
-}
-
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
+/* Brand always visible */
 .nav-brand {
     font-family: 'Righteous', cursive;
     font-size: 1rem;
@@ -953,11 +927,44 @@ footer {
     flex-shrink: 0;
 }
 
+/* Desktop: links in a row */
 .nav-links {
     display: flex;
     align-items: center;
     gap: 30px;
 }
+
+/* Hamburger hidden on desktop */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+    flex-shrink: 0;
+    /* sits above everything including the overlay */
+    position: relative;
+    z-index: 9999;
+}
+
+.hamburger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    transform-origin: center;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media screen and (max-width: 768px) {
     nav {
@@ -965,60 +972,66 @@ footer {
         padding: 14px 20px;
         position: sticky;
         top: 0;
-        z-index: 2000;
-    }
-
-    .nav-brand {
-        font-size: 1rem;
-        letter-spacing: 3px;
+        z-index: 1000;
+        gap: 0;
+        flex-wrap: wrap;
     }
 
     .hamburger {
         display: flex;
-        z-index: 2100;
-        position: relative;
     }
 
+    /* Dropdown panel — slides down from the nav bar */
     .nav-links {
-        display: flex;
+        /* take full width on its own row */
+        flex-basis: 100%;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 28px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(2, 1, 10, 0.97);
-        backdrop-filter: blur(20px);
-        z-index: 2050;
+        gap: 0;
+
+        /* solid opaque box — no transparency tricks */
+        background: #02010A;
+        border-top: 1px solid var(--glass-border);
+        border-bottom: 2px solid var(--accent);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+
+        /* collapsed state */
+        max-height: 0;
+        overflow: hidden;
         opacity: 0;
         pointer-events: none;
-        transform: translateY(-12px);
-        transition: opacity 0.35s ease, transform 0.35s ease;
+        transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.3s ease;
+        padding: 0 20px;
     }
 
     .nav-links.open {
+        max-height: 500px;
         opacity: 1;
         pointer-events: all;
-        transform: translateY(0);
+        padding: 20px 20px 28px;
     }
 
     .nav-links a {
-        font-size: 1.4rem !important;
-        letter-spacing: 4px !important;
+        font-size: 1.2rem !important;
+        letter-spacing: 3px !important;
+        padding: 14px 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-links a:last-of-type {
+        border-bottom: none;
     }
 
     .nav-links .theme-switch-wrapper {
         margin-left: 0;
-        margin-top: 10px;
+        margin-top: 20px;
+        padding-top: 4px;
     }
+}
 
-    .hamburger.open {
-        z-index: 2100;
-        position: fixed;
-        top: 14px;
-        right: 20px;
-    }
+/* Light theme: solid light background for the dropdown */
+[data-theme="light"] .nav-links {
+    background: #f4f4f9;
 }
