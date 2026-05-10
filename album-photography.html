@@ -28,7 +28,7 @@
         }
 
         
-        /* Masonry grid */
+        
         .photo-grid {
             columns: 3;
             column-gap: 16px;
@@ -51,12 +51,12 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             background: var(--glass-bg);
-            height: auto;        /* override old fixed height */
+            height: auto;        
         }
 
         .photo-item img {
             width: 100%;
-            height: auto;        /* let images breathe naturally */
+            height: auto;        
             display: block;
             object-fit: cover;
             object-position: center center;
@@ -68,29 +68,28 @@
             transform: scale(1.05);
         }
 
-
-        /* --- LIGHTBOX (MODAL) STYLES --- */
+        
         .modal {
-            display: none; 
+            display: none;
             position: fixed;
             z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--modal-bg); 
-            backdrop-filter: blur(10px); 
-            overflow: hidden; /* Prevents background scrolling when open */
+            background-color: var(--modal-bg);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
-            margin: auto;
             display: block;
-            max-width: 90%;
-            max-height: 80vh;
-            margin-top: 60px;
+            max-width: 80vw;
+            max-height: 78vh;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(123, 140, 255, 0.35), 0 0 120px rgba(123, 140, 255, 0.15);
             animation: zoomIn 0.3s ease;
             object-fit: contain;
         }
@@ -127,21 +126,17 @@
         }
         @keyframes slideOutRight {
             from { transform: translateX(0);    opacity: 1; }
-            to   { transform: translateX(80px); opacity: 0; }
-        }
-
-            to   { transform: translateX(0);    opacity: 1; }
-        }
-
-            to   { transform: translateX(0);     opacity: 1; }
-        }
-
-            to   { transform: translateX(-80px); opacity: 0; }
-        }
 
             to   { transform: translateX(80px); opacity: 0; }
         }
 
+
+        .modal-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
         #img-counter {
             position: absolute;
             top: 22px;
@@ -175,7 +170,7 @@
             transform: scale(1.1);
         }
 
-        /* --- NEW: SLIDER ARROWS --- */
+        
         .prev-btn, .next-btn {
             cursor: pointer;
             position: absolute;
@@ -205,7 +200,7 @@
             transform: scale(1.2);
         }
 
-        /* Override global h1 gradient — use solid accent color instead */
+        
         h1 {
             background: none;
             -webkit-background-clip: unset;
@@ -283,7 +278,7 @@
     </style>
 </head>
 <body>
-    <!-- PRELOADER -->
+    
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -295,14 +290,25 @@
         </div>
     </div>
 
-
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="gallery.html" class="active">GALLERY</a>
-        <a href="blog.html">BLOG</a>
-        <a href="contact.html">CONTACT</a>
-        </nav>  
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="gallery.html" class="active">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
+    </nav>  
 
     <main class="container">
         
@@ -337,9 +343,10 @@
         <span class="close-btn">&times;</span>
         <span class="prev-btn">&#10094;</span>
         <span class="next-btn">&#10095;</span>
-        
-        <img class="modal-content" id="full-image">
-        <div id="caption"></div>
+        <div class="modal-inner">
+            <img class="modal-content" id="full-image">
+            <div id="caption"></div>
+        </div>
     </div>
 
     
@@ -358,7 +365,7 @@
         const prevBtn = document.querySelector(".prev-btn");
         const nextBtn = document.querySelector(".next-btn");
         
-        // Grab all images inside your photo grid
+        
         const images = document.querySelectorAll(".photo-item img");
         let currentIndex = 0;
         function showImage(index, direction) {
@@ -386,41 +393,41 @@
             }, 250);
         }
 
-        // 1. Click an image to open it
+        
         images.forEach((img, index) => {
             img.addEventListener("click", function() {
-                modal.style.display = "block";
+                modal.style.display = "flex";
                 showImage(index, undefined);
             });
         });
 
-        // 2. Click the Next arrow
+        
         nextBtn.addEventListener("click", function() {
             let nextIndex = (currentIndex + 1) % images.length; 
             showImage(nextIndex, 'next');
         });
 
-        // 3. Click the Prev arrow
+        
         prevBtn.addEventListener("click", function() {
             let prevIndex = (currentIndex - 1 + images.length) % images.length; 
             showImage(prevIndex, 'prev');
         });
 
-        // 4. Click the X to close
+        
         closeBtn.addEventListener("click", function() {
             modal.style.display = "none";
         });
 
-        // 5. Click anywhere in the black background to close
+        
         modal.addEventListener("click", function(e) {
             if (e.target === modal) {
                 modal.style.display = "none";
             }
         });
 
-        // 6. Use Keyboard arrows to navigate
+        
         document.addEventListener("keydown", function(e) {
-            if (modal.style.display === "block") {
+            if (modal.style.display === "flex") {
                 if (e.key === "ArrowRight") nextBtn.click();
                 if (e.key === "ArrowLeft") prevBtn.click();
                 if (e.key === "Escape") closeBtn.click();
@@ -428,7 +435,6 @@
         });
     });
 </script>
-
 
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
@@ -441,7 +447,7 @@
         });
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -460,7 +466,7 @@
             });
 
             function triggerEasterEgg() {
-                // Toast message
+                
                 const toast = document.createElement('div');
                 toast.id = 'egg-toast';
                 toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
@@ -486,7 +492,7 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3500);
 
-                // Confetti burst
+                
                 launchConfetti();
             }
 
@@ -519,7 +525,7 @@
                     setTimeout(() => el.remove(), duration + delay + 100);
                 }
 
-                // Inject keyframes once
+                
                 if (!document.getElementById('confetti-style')) {
                     const style = document.createElement('style');
                     style.id = 'confetti-style';
@@ -532,7 +538,7 @@
                     document.head.appendChild(style);
                 }
 
-                // Set random rotation per piece via JS
+                
                 document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
                     el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
                 });

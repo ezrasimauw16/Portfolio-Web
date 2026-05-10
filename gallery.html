@@ -70,7 +70,7 @@
             line-height: 1.5;
         }
 
-        /* Override global h1 gradient */
+        
         h1 {
             background: none;
             -webkit-background-clip: unset;
@@ -148,7 +148,7 @@
     </style>
 </head>
 <body>
-    <!-- PRELOADER -->
+    
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -160,14 +160,25 @@
         </div>
     </div>
 
-
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="gallery.html" class="active">GALLERY</a>
-        <a href="blog.html">BLOG</a>
-        <a href="contact.html">CONTACT</a>
-        </nav>  
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="gallery.html" class="active">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
+    </nav>  
 
     <main class="container">
         <div style="text-align: center; margin-top: 60px;" class="css-fade delay-1">
@@ -177,7 +188,7 @@
 
         <div class="album-container css-fade delay-2">
             <a href="album-photography.html" class="album-card">
-                <img src="Photography/Foto.jpeg" alt="Photography" class="album-image" onerror="this.src='Foto.jpeg'">
+                <img src="Photography/Foto.jpeg" alt="Photography" class="album-image" onerror="this.style.background='var(--glass-bg)'">
                 <div class="album-info">
                     <div><span class="album-count">12 PHOTOS</span></div>
                     <h2>Photography</h2>
@@ -195,7 +206,7 @@
             </a>
 
             <a href="album-portrait.html" class="album-card">
-                <img src="Portrait/Ezra5.jpeg" alt="Portraits" class="album-image">
+                <img src="Portrait/Ezra1.jpg" alt="Portraits" class="album-image">
                 <div class="album-info">
                     <div><span class="album-count">7 PORTRAITS</span></div>
                     <h2>Portraits</h2>
@@ -209,7 +220,6 @@
         &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
     </footer>
 
-
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
     <script>
@@ -221,7 +231,7 @@
         });
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -240,7 +250,7 @@
             });
 
             function triggerEasterEgg() {
-                // Toast message
+                
                 const toast = document.createElement('div');
                 toast.id = 'egg-toast';
                 toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
@@ -266,7 +276,7 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3500);
 
-                // Confetti burst
+                
                 launchConfetti();
             }
 
@@ -299,7 +309,7 @@
                     setTimeout(() => el.remove(), duration + delay + 100);
                 }
 
-                // Inject keyframes once
+                
                 if (!document.getElementById('confetti-style')) {
                     const style = document.createElement('style');
                     style.id = 'confetti-style';
@@ -312,7 +322,7 @@
                     document.head.appendChild(style);
                 }
 
-                // Set random rotation per piece via JS
+                
                 document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
                     el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
                 });

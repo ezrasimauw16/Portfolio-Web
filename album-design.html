@@ -28,7 +28,7 @@
         }
 
         
-        /* Masonry grid */
+        
         .photo-grid {
             columns: 3;
             column-gap: 16px;
@@ -51,12 +51,12 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             background: var(--glass-bg);
-            height: auto;        /* override old fixed height */
+            height: auto;        
         }
 
         .photo-item img {
             width: 100%;
-            height: auto;        /* let images breathe naturally */
+            height: auto;        
             display: block;
             object-fit: cover;
             object-position: center center;
@@ -68,8 +68,7 @@
             transform: scale(1.05);
         }
 
-
-        /* --- LIGHTBOX (MODAL) STYLES --- */
+        
         .modal {
             display: none;
             position: fixed;
@@ -80,17 +79,17 @@
             height: 100%;
             background-color: var(--modal-bg);
             backdrop-filter: blur(10px);
-            overflow: auto;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
-            margin: auto;
             display: block;
-            max-width: 90%;
-            max-height: 85vh;
-            margin-top: 40px;
+            max-width: 80vw;
+            max-height: 78vh;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 80px rgba(123, 140, 255, 0.35), 0 0 120px rgba(123, 140, 255, 0.15);
             animation: zoomIn 0.3s ease;
             object-fit: contain;
         }
@@ -130,32 +129,28 @@
             to   { transform: translateX(80px); opacity: 0; }
         }
 
-            to   { transform: translateX(0);    opacity: 1; }
-        }
 
-            to   { transform: translateX(0);     opacity: 1; }
+        .modal-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
-
-            to   { transform: translateX(-80px); opacity: 0; }
-        }
-
-            to   { transform: translateX(80px); opacity: 0; }
-        }
-
         #img-counter {
             position: absolute;
             top: 22px;
             left: 40px;
-            color: var(--text-sub);
+            color: #a0a8ff;
             font-family: 'Outfit', sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
             letter-spacing: 2px;
             z-index: 1001;
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.08);
             padding: 6px 14px;
             border-radius: 30px;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(6px);
         }
 
         .close-btn {
@@ -175,7 +170,7 @@
             transform: scale(1.1);
         }
 
-        /* SLIDER ARROWS */
+        
         .prev-btn, .next-btn {
             cursor: pointer;
             position: absolute;
@@ -198,7 +193,7 @@
             transform: scale(1.2);
         }
 
-        /* Override global h1 gradient — use solid accent color instead */
+        
         h1 {
             background: none;
             -webkit-background-clip: unset;
@@ -276,7 +271,7 @@
     </style>
 </head>
 <body>
-    <!-- PRELOADER -->
+    
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -288,14 +283,25 @@
         </div>
     </div>
 
-
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="gallery.html" class="active">GALLERY</a>
-        <a href="blog.html">BLOG</a>
-        <a href="contact.html">CONTACT</a>
-        </nav>  
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="gallery.html" class="active">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
+    </nav>  
 
     <main class="container">
         
@@ -324,9 +330,10 @@
         <span class="close-btn">&times;</span>
         <span class="prev-btn">&#10094;</span>
         <span class="next-btn">&#10095;</span>
-        
-        <img class="modal-content" id="full-image">
-        <div id="caption"></div>
+        <div class="modal-inner">
+            <img class="modal-content" id="full-image">
+            <div id="caption"></div>
+        </div>
     </div>
 
     <footer style="text-align: center; padding: 30px; opacity: 0.7; font-size: 0.9rem; margin-top: 50px;">
@@ -346,10 +353,11 @@
             let currentIndex = 0; 
 
             function showImage(index, direction) {
-                // direction: 'next' slides left, 'prev' slides right, undefined = open (zoom)
+                
                 if (direction === undefined) {
                     modalImg.src = images[index].src;
                     captionText.innerHTML = images[index].alt;
+                    document.getElementById('img-counter').textContent = (index + 1) + ' / ' + images.length;
                     modalImg.style.animation = 'zoomIn 0.3s ease';
                     captionText.style.animation = 'zoomIn 0.3s ease';
                     currentIndex = index;
@@ -376,7 +384,7 @@
 
             images.forEach((img, index) => {
                 img.addEventListener("click", function() {
-                    modal.style.display = "block";
+                    modal.style.display = "flex";
                     showImage(index, undefined);
                 });
             });
@@ -402,7 +410,7 @@
             });
 
             document.addEventListener("keydown", function(e) {
-                if (modal.style.display === "block") {
+                if (modal.style.display === "flex") {
                     if (e.key === "ArrowRight") nextBtn.click();
                     if (e.key === "ArrowLeft") prevBtn.click();
                     if (e.key === "Escape") closeBtn.click();
@@ -410,7 +418,6 @@
             });
         });
     </script>
-
 
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
@@ -423,7 +430,7 @@
         });
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -442,7 +449,7 @@
             });
 
             function triggerEasterEgg() {
-                // Toast message
+                
                 const toast = document.createElement('div');
                 toast.id = 'egg-toast';
                 toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
@@ -468,7 +475,7 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3500);
 
-                // Confetti burst
+                
                 launchConfetti();
             }
 
@@ -501,7 +508,7 @@
                     setTimeout(() => el.remove(), duration + delay + 100);
                 }
 
-                // Inject keyframes once
+                
                 if (!document.getElementById('confetti-style')) {
                     const style = document.createElement('style');
                     style.id = 'confetti-style';
@@ -514,7 +521,7 @@
                     document.head.appendChild(style);
                 }
 
-                // Set random rotation per piece via JS
+                
                 document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
                     el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
                 });

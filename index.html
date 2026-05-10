@@ -84,7 +84,7 @@
             100% { opacity: 1; transform: scale(1) rotate(0deg); }
         }
 
-        /* EXPERTISE SECTION STYLES */
+        
         .services-grid {
             display: flex;
             gap: 30px;
@@ -112,7 +112,7 @@
             letter-spacing: 1px;
         }
 
-        /* NEW MINI-GALLERY STYLES */
+        
         .photo-grid {
             display: flex;
             gap: 20px;
@@ -135,14 +135,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .photo-item:hover img {
-            transform: scale(1.1);
+            transform: none;
         }
 
-        /* CAPTION STYLES FOR MINI GALLERY */
+        
         .photo-caption {
             position: absolute;
             bottom: 0;
@@ -164,7 +163,7 @@
             padding-bottom: 25px;
         }
 
-        /* HIGH-POP CTA STYLES */
+        
         .cta-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
             backdrop-filter: blur(25px) saturate(200%);
@@ -299,7 +298,7 @@
     </style>
 </head>
 <body>
-    <!-- PRELOADER -->
+    
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -311,19 +310,25 @@
         </div>
     </div>
 
-
     <div id="bg-canvas"></div>
 
-   <nav>
-    <a href="index.html" class="active">HOME</a>
-    <a href="gallery.html">GALLERY</a>
-    <a href="blog.html">BLOG</a>
-    <a href="contact.html">CONTACT</a>
-           <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="checkbox">
-                <input type="checkbox" id="checkbox" />
-                <div class="slider"></div>
-            </label>
+    <nav>
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html" class="active">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
         </div>
     </nav>  
 
@@ -346,14 +351,14 @@
 
                 <div style="display: flex; gap: 30px; margin-top: 25px; flex-wrap: wrap;">
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/instagram-white-icon.png" width="20" alt="Instagram">
+                        <img src="https://cdn.simpleicons.org/instagram/ffffff" width="20" alt="Instagram">
                         <a href="https://www.instagram.com/itsezra_ffs/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; transition: 0.3s;">
                             FIND ME ON INSTAGRAM
                         </a>
                     </div>
 
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/whatsapp-white-icon.png" width="20" alt="WhatsApp">
+                        <img src="https://cdn.simpleicons.org/whatsapp/ffffff" width="20" alt="WhatsApp">
                         <a href="https://wa.me/628114921000" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; transition: 0.3s;">
                             CHAT ON WHATSAPP
                         </a>
@@ -366,8 +371,7 @@
             </div>
         </section>
 
-
-        <!-- ABOUT ME TEASER -->
+        
         <section class="css-fade delay-2" style="margin-top: 100px;">
             <div class="glass-card" style="padding: 50px 40px; display: flex; gap: 50px; align-items: center; flex-wrap: wrap;">
                 <img src="Portrait/Ezra5.jpeg" alt="Ezra Steve Simauw"
@@ -511,7 +515,6 @@
         &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
     </footer>
 
-
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
     <script>
@@ -523,7 +526,7 @@
         });
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -542,7 +545,7 @@
             });
 
             function triggerEasterEgg() {
-                // Toast message
+                
                 const toast = document.createElement('div');
                 toast.id = 'egg-toast';
                 toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
@@ -568,7 +571,7 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3500);
 
-                // Confetti burst
+                
                 launchConfetti();
             }
 
@@ -601,7 +604,7 @@
                     setTimeout(() => el.remove(), duration + delay + 100);
                 }
 
-                // Inject keyframes once
+                
                 if (!document.getElementById('confetti-style')) {
                     const style = document.createElement('style');
                     style.id = 'confetti-style';
@@ -614,7 +617,7 @@
                     document.head.appendChild(style);
                 }
 
-                // Set random rotation per piece via JS
+                
                 document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
                     el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
                 });

@@ -19,7 +19,7 @@
         .topic-list li { margin-bottom: 12px; color: var(--text-sub); }
         .post-card p { margin-top: 0; margin-bottom: 15px; } 
 
-        /* Override global h1 gradient for light mode readability */
+        
         h1 {
             background: none;
             -webkit-background-clip: unset;
@@ -28,7 +28,7 @@
             filter: none;
         }
 
-        /* Blog post photo pair */
+        
         .post-photo-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -131,7 +131,7 @@
     </style>
 </head>
 <body>
-    <!-- PRELOADER -->
+    
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -143,16 +143,27 @@
         </div>
     </div>
 
-
     <div id="bg-canvas"></div>
 
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="gallery.html">GALLERY</a>
-        <a href="blog.html" class="active">BLOG</a>
-        <a href="contact.html">CONTACT</a>
-        </nav>
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html" class="active">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
+    </nav>
 
     <main class="container">
         <header style="text-align: center; margin-bottom: 50px;" class="css-fade delay-1">
@@ -294,7 +305,6 @@
         &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
     </footer>
 
-
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
     <script>
@@ -306,7 +316,7 @@
         });
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -325,7 +335,7 @@
             });
 
             function triggerEasterEgg() {
-                // Toast message
+                
                 const toast = document.createElement('div');
                 toast.id = 'egg-toast';
                 toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
@@ -351,7 +361,7 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3500);
 
-                // Confetti burst
+                
                 launchConfetti();
             }
 
@@ -384,7 +394,7 @@
                     setTimeout(() => el.remove(), duration + delay + 100);
                 }
 
-                // Inject keyframes once
+                
                 if (!document.getElementById('confetti-style')) {
                     const style = document.createElement('style');
                     style.id = 'confetti-style';
@@ -397,7 +407,7 @@
                     document.head.appendChild(style);
                 }
 
-                // Set random rotation per piece via JS
+                
                 document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
                     el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
                 });

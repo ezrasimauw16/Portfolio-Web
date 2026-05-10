@@ -16,58 +16,88 @@
             filter: none;
         }
 
-        /* ── HERO ── */
+        
         .about-hero {
-            display: flex;
+            display: grid;
+            grid-template-columns: 260px 1fr;
             gap: 60px;
-            align-items: center;
+            align-items: start;
             margin-top: 70px;
-            flex-wrap: wrap;
         }
 
         .about-photo-wrap {
-            flex-shrink: 0;
             position: relative;
         }
 
+        @media (min-width: 701px) {
+            .about-photo-wrap {
+                position: sticky;
+                top: 100px;
+            }
+        }
+
         .about-photo {
-            width: 280px;
-            height: 340px;
+            width: 100%;
+            height: 320px;
             object-fit: cover;
             object-position: center top;
             border-radius: 20px;
             border: 2px solid var(--glass-border);
             box-shadow: 0 0 40px var(--glow);
             display: block;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        /* Accent corner decoration */
+        .about-photo-wrap:hover .about-photo {
+            transform: scale(1.03) translateY(-4px);
+            box-shadow: 0 0 60px var(--glow), 0 20px 40px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+
+        .about-photo-wrap:hover::before {
+            top: -14px;
+            left: -14px;
+            width: 64px;
+            height: 64px;
+            transition: all 0.4s ease;
+        }
+
+        .about-photo-wrap:hover::after {
+            bottom: -14px;
+            right: -14px;
+            width: 64px;
+            height: 64px;
+            transition: all 0.4s ease;
+        }
+
+        
         .about-photo-wrap::before {
             content: '';
             position: absolute;
             top: -10px;
             left: -10px;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-top: 3px solid var(--accent);
             border-left: 3px solid var(--accent);
             border-radius: 4px 0 0 0;
+            transition: all 0.4s ease;
         }
         .about-photo-wrap::after {
             content: '';
             position: absolute;
             bottom: -10px;
             right: -10px;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-bottom: 3px solid var(--accent);
             border-right: 3px solid var(--accent);
             border-radius: 0 0 4px 0;
+            transition: all 0.4s ease;
         }
 
         .about-bio {
-            flex: 1;
-            min-width: 280px;
+            min-width: 0;
         }
 
         .about-bio h1 {
@@ -79,77 +109,79 @@
         .about-bio .subtitle {
             font-family: 'Outfit', sans-serif;
             color: var(--text-sub);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            font-weight: 600;
-            margin-bottom: 24px;
+            font-size: 0.82rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 28px;
         }
 
         .about-bio p {
             color: var(--text-sub);
-            font-size: 1rem;
-            line-height: 1.85;
-            margin-bottom: 16px;
+            font-size: 0.97rem;
+            line-height: 1.9;
+            margin-bottom: 14px;
         }
 
         .about-bio p b {
             color: var(--text-main);
         }
 
+        @media (max-width: 700px) {
+            .about-hero { grid-template-columns: 1fr; }
+            .about-photo { height: 260px; }
+        }
 
-        /* ── MUSIC WIDGET ── */
-        .music-card {
+        
+        .music-section-wrap {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .music-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--glow);
-        }
-        .music-card-art {
-            width: 52px;
-            height: 52px;
-            border-radius: 10px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .music-card-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .music-card-label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--accent);
-            margin-bottom: 3px;
-        }
-        .music-card-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-main);
-            white-space: nowrap;
+            border-radius: 20px;
             overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 40px;
         }
-        .music-card-artist {
-            font-size: 0.78rem;
-            color: var(--text-sub);
-            margin-top: 2px;
+
+        .music-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(123, 140, 255, 0.05);
         }
+
+        .music-section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+
+        .music-section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            color: var(--accent);
+        }
+
         .music-bar {
             display: flex;
             align-items: flex-end;
             gap: 3px;
-            height: 20px;
+            height: 18px;
             flex-shrink: 0;
         }
         .music-bar span {
@@ -159,16 +191,111 @@
             border-radius: 2px;
             animation: music-bounce 1.2s ease-in-out infinite;
         }
-        .music-bar span:nth-child(1) { height: 8px;  animation-delay: 0s; }
-        .music-bar span:nth-child(2) { height: 14px; animation-delay: 0.2s; }
-        .music-bar span:nth-child(3) { height: 10px; animation-delay: 0.4s; }
-        .music-bar span:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+        .music-bar span:nth-child(1) { height: 7px;  animation-delay: 0s; }
+        .music-bar span:nth-child(2) { height: 13px; animation-delay: 0.2s; }
+        .music-bar span:nth-child(3) { height: 9px;  animation-delay: 0.4s; }
+        .music-bar span:nth-child(4) { height: 15px; animation-delay: 0.1s; }
         @keyframes music-bounce {
             0%, 100% { transform: scaleY(1);   }
             50%       { transform: scaleY(0.3); }
         }
 
-        /* ── VINYL ALBUMS ── */
+        .music-track-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-track {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 22px;
+            border-bottom: 1px solid var(--glass-border);
+            transition: background 0.2s ease;
+            cursor: default;
+        }
+
+        .music-track:last-child {
+            border-bottom: none;
+        }
+
+        .music-track:hover {
+            background: rgba(123, 140, 255, 0.07);
+        }
+
+        .music-track-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .music-track:first-child .music-track-num {
+            color: var(--accent);
+        }
+
+        .music-track-art {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .music-track-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .music-track-name {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .music-track:first-child .music-track-name {
+            color: var(--accent);
+        }
+
+        .music-track-artist {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            margin-top: 2px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .music-track-tag {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            border: 1px solid var(--glass-border);
+            background: rgba(123, 140, 255, 0.08);
+            padding: 3px 9px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .music-track:first-child .music-track-tag {
+            background: var(--accent);
+            color: #04052E;
+            border-color: var(--accent);
+        }
+
+        
         .album-vinyl {
             display: flex;
             flex-direction: column;
@@ -203,7 +330,7 @@
         .vinyl-info {
             text-align: center;
         }
-        /* ── QUICK FACTS ── */
+        
         .facts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -247,7 +374,7 @@
             color: var(--text-main);
         }
 
-        /* ── INFLUENCES ── */
+        
         .influences-section {
             margin-top: 80px;
         }
@@ -285,7 +412,7 @@
             border-color: var(--accent);
         }
 
-        /* ── PHILOSOPHY QUOTE ── */
+        
         .philosophy {
             margin-top: 80px;
             margin-bottom: 80px;
@@ -314,7 +441,7 @@
             margin-top: 16px;
         }
 
-        /* ── CTA ── */
+        
         .about-cta {
             display: flex;
             gap: 15px;
@@ -356,10 +483,6 @@
             transform: translateY(-3px);
         }
 
-        @media (max-width: 600px) {
-            .about-photo { width: 100%; height: 300px; }
-            .about-photo-wrap { width: 100%; }
-        }
     </style>
     <style id="preloader-style">
         #preloader {
@@ -401,16 +524,28 @@
     </div>
 
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html" class="active">ABOUT</a>
-        <a href="gallery.html">GALLERY</a>
-        <a href="blog.html">BLOG</a>
-        <a href="contact.html">CONTACT</a>
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html" class="active">ABOUT</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
     </nav>
 
     <main class="container">
 
-        <!-- HERO -->
+        
         <div class="about-hero css-fade delay-1">
             <div class="about-photo-wrap">
                 <img src="Portrait/Ezra5.jpeg" alt="Ezra Steve Simauw" class="about-photo">
@@ -420,11 +555,13 @@
                 <p class="subtitle">INFORMATICS STUDENT · UNSRAT</p>
                 <h1>Ezra Steve Simauw.</h1>
 
-                <p>I have always been an <b>artist by nature</b>. Long before I knew what a line of code was, my world was defined by the scratch of a pencil on paper and the melodies I found on the <b>piano and guitar</b>. As a native of Manado currently studying Informatics at UNSRAT, I'll be the first to admit that my path hasn't been a straight line — I chose the future, but I never lost the passion.</p>
+                <p>I've always been an <b>artist at heart</b>. Long before I ever touched a line of code, my world was all about the scratch of a pencil on paper and whatever melodies I could pick out on the <b>piano or guitar</b>. To be honest, my path hasn't exactly been a straight line. When I had to choose between a "starving artist" hobby and a steady career, I chose the future: <b>Informatics at UNSRAT</b>. I stepped into the world of technical logic not because I lost my passion for drawing, but because I wanted to see if I could <b>build a bridge between the two</b>.</p>
 
-                <p>That choice made me a <b>"flexible" creator</b> in every sense of the word. I am a singer, a dancer, and a musician; a photographer, a graphic designer, and a video editor. My musical influences — from the timeless precision of <b>Michael Jackson and the Jackson 5</b> to the nostalgic harmonies of the <b>Backstreet Boys</b> — infuse my visual work with rhythm and energy. I don't just see a design or a photograph; I <i>feel</i> the tempo and the groove of the composition.</p>
+                <p>That choice has made me a <b>"flexible" creator</b> in the best way possible. My toolkit is pretty broad — I'm a singer, a dancer, and a musician; a photographer, a graphic designer, and a video editor. Drawing was my first love, but I've found that all these different skills actually feed into each other. My musical taste — everything from the precision of <b>Michael Jackson</b> to the harmonies of the <b>Backstreet Boys</b> — gives my visual work a certain rhythm. I don't just look at a design or a photo; I'm looking for the <i>"groove"</i> in the composition.</p>
 
-                <p>To me, <b>Informatics provides the skeleton, and art provides the soul.</b> My technical studies taught me a level of logic and meticulousness that helps me design digital experiences that aren't just pretty, but functional. I refuse to be labeled as "just" a student or "just" an artist. I am a <b>multidisciplinary creator</b> who believes that logic and creativity are two sides of the same coin.</p>
+                <p>People often ask how an Informatics student ends up so deep in the arts. For me, it's simple: <b>Informatics is the skeleton, and art is the soul.</b> My technical studies have given me a meticulous, logical eye that a lot of "pure" artists might miss. When I'm coding, I'm building a system; when I'm framing a shot or designing a layout, I'm using that same logic to find the perfect balance. Understanding how the web works "under the hood" gives me an edge in making digital experiences that actually <b>feel right</b>.</p>
+
+                <p>At the end of the day, I don't really believe in sticking to just one box. I'm a <b>multidisciplinary creator</b> who believes that logic and creativity are just two sides of the same coin. Whether I'm writing code or working on a new design, my goal is to stay adaptable and keep things fresh. I'm here to prove that you don't have to trade your artistic nature for a steady career — you just have to be <b>flexible enough to let the two worlds collide</b>.</p>
 
                 <div class="about-cta">
                     <a href="gallery.html" class="about-btn primary">VIEW MY WORK</a>
@@ -433,7 +570,7 @@
             </div>
         </div>
 
-        <!-- QUICK FACTS -->
+        
         <div class="facts-grid css-fade delay-2">
             <div class="fact-card">
                 <span class="fact-icon">🎓</span>
@@ -462,7 +599,7 @@
             </div>
         </div>
 
-        <!-- INFLUENCES -->
+        
         <div class="influences-section css-fade delay-3">
             <p class="section-label">INFLUENCES & INSPIRATIONS</p>
             <div class="influence-list">
@@ -477,108 +614,102 @@
             </div>
         </div>
 
-        <!-- PHILOSOPHY QUOTE -->
+        
         <div class="philosophy css-fade delay-4">
             <blockquote class="philosophy-quote">
-                "Informatics provides the structure while art provides the soul. You don't have to choose between a creative heart and a technical mind — just be flexible enough to let the two worlds collide."
+                "Informatics is the skeleton, and art is the soul. I don't believe in sticking to just one box — logic and creativity are just two sides of the same coin."
                 <span>— EZRA STEVE SIMAUW</span>
             </blockquote>
         </div>
 
-
-        <!-- MUSIC TASTE -->
+        
         <div class="css-fade delay-5" style="margin-top: 80px; margin-bottom: 80px;">
             <p class="section-label">MY MUSIC TASTE</p>
-            <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 30px; max-width: 500px;">
+            <p style="color: var(--text-sub); font-size: 0.92rem; margin-bottom: 24px; max-width: 520px;">
                 The soundtrack behind everything I create. All-time favorite: <b style="color: var(--text-main);">Michael Jackson</b>.
             </p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px;">
-
-                <div class="music-card">
-                    <div class="music-card-art" style="background: linear-gradient(135deg, #1a1a2e, #3a0050);">
-                        <span style="font-size:2.2rem;">🎤</span>
-                    </div>
-                    <div class="music-card-info">
-                        <div class="music-card-label">MOST PLAYED</div>
-                        <div class="music-card-title">Drunk Text</div>
-                        <div class="music-card-artist">Henry Moodie</div>
+            
+            <div class="music-section-wrap">
+                <div class="music-section-header">
+                    <div class="music-section-header-left">
+                        <div class="music-dot"></div>
+                        <span class="music-section-title">NOW PLAYING IN MY HEAD</span>
                     </div>
                     <span class="music-bar"><span></span><span></span><span></span><span></span></span>
                 </div>
-
-                <div class="music-card">
-                    <div class="music-card-art" style="background: linear-gradient(135deg, #001a3a, #003a6e);">
-                        <span style="font-size:2.2rem;">🎵</span>
+                <div class="music-track-list">
+                    <div class="music-track">
+                        <span class="music-track-num">1</span>
+                        <div class="music-track-art" id="art-1" style="background: linear-gradient(135deg, #1a1a2e, #3a0050);">🎤</div>
+                        <div class="music-track-info">
+                            <div class="music-track-name">Drunk Text</div>
+                            <div class="music-track-artist">Henry Moodie</div>
+                        </div>
+                        <span class="music-track-tag">MOST PLAYED</span>
                     </div>
-                    <div class="music-card-info">
-                        <div class="music-card-label">ON REPEAT</div>
-                        <div class="music-card-title">Drowning</div>
-                        <div class="music-card-artist">Backstreet Boys</div>
+                    <div class="music-track">
+                        <span class="music-track-num">2</span>
+                        <div class="music-track-art" id="art-2" style="background: linear-gradient(135deg, #001a3a, #003a6e);">🎵</div>
+                        <div class="music-track-info">
+                            <div class="music-track-name">Drowning</div>
+                            <div class="music-track-artist">Backstreet Boys</div>
+                        </div>
+                        <span class="music-track-tag">ON REPEAT</span>
                     </div>
-                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
+                    <div class="music-track">
+                        <span class="music-track-num">3</span>
+                        <div class="music-track-art" id="art-3" style="background: linear-gradient(135deg, #1a0a00, #4a2000);">🕺</div>
+                        <div class="music-track-info">
+                            <div class="music-track-name">Billie Jean</div>
+                            <div class="music-track-artist">Michael Jackson</div>
+                        </div>
+                        <span class="music-track-tag">ALL-TIME</span>
+                    </div>
+                    <div class="music-track">
+                        <span class="music-track-num">4</span>
+                        <div class="music-track-art" id="art-4" style="background: linear-gradient(135deg, #0a1a0a, #1a4a1a);">🎹</div>
+                        <div class="music-track-info">
+                            <div class="music-track-name">I Think They Call This Love</div>
+                            <div class="music-track-artist">Matthew Ifield</div>
+                        </div>
+                        <span class="music-track-tag">HIDDEN GEM</span>
+                    </div>
+                    <div class="music-track">
+                        <span class="music-track-num">5</span>
+                        <div class="music-track-art" id="art-5" style="background: linear-gradient(135deg, #1a0a1a, #4a004a);">🎶</div>
+                        <div class="music-track-info">
+                            <div class="music-track-name">I Want You Back</div>
+                            <div class="music-track-artist">Jackson 5</div>
+                        </div>
+                        <span class="music-track-tag">CHILDHOOD</span>
+                    </div>
                 </div>
-
-                <div class="music-card">
-                    <div class="music-card-art" style="background: linear-gradient(135deg, #1a0a00, #4a2000);">
-                        <span style="font-size:2.2rem;">🕺</span>
-                    </div>
-                    <div class="music-card-info">
-                        <div class="music-card-label">ALL-TIME CLASSIC</div>
-                        <div class="music-card-title">Billie Jean</div>
-                        <div class="music-card-artist">Michael Jackson</div>
-                    </div>
-                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
-                </div>
-
-                <div class="music-card">
-                    <div class="music-card-art" style="background: linear-gradient(135deg, #0a1a0a, #1a4a1a);">
-                        <span style="font-size:2.2rem;">🎹</span>
-                    </div>
-                    <div class="music-card-info">
-                        <div class="music-card-label">HIDDEN GEM</div>
-                        <div class="music-card-title">I Think They Call This Love</div>
-                        <div class="music-card-artist">Matthew Ifield</div>
-                    </div>
-                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
-                </div>
-
-                <div class="music-card">
-                    <div class="music-card-art" style="background: linear-gradient(135deg, #1a0a1a, #4a004a);">
-                        <span style="font-size:2.2rem;">🎶</span>
-                    </div>
-                    <div class="music-card-info">
-                        <div class="music-card-label">CHILDHOOD ANTHEM</div>
-                        <div class="music-card-title">I Want You Back</div>
-                        <div class="music-card-artist">Jackson 5</div>
-                    </div>
-                    <span class="music-bar"><span></span><span></span><span></span><span></span></span>
-                </div>
-
             </div>
 
-            <p class="section-label" style="margin-top: 50px;">FAVORITE ALBUMS</p>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            
+            <p class="section-label" style="margin-top: 40px;">FAVORITE ALBUMS</p>
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;">
 
                 <div class="album-vinyl">
-                    <div class="vinyl-art" style="background: linear-gradient(135deg, #0a0a0a, #2a0000);">
-                        <span style="font-size: 2.5rem;">🕺</span>
+                    <div class="vinyl-art" id="vinyl-thriller" style="background: linear-gradient(135deg, #0a0a0a, #2a0000);">
+                        <span style="font-size: 2.2rem;">🕺</span>
                         <div class="vinyl-hole"></div>
                     </div>
                     <div class="vinyl-info">
-                        <div style="font-weight: 700; color: var(--text-main); font-size: 1rem;">Thriller</div>
-                        <div style="color: var(--text-sub); font-size: 0.82rem; letter-spacing: 1px;">MICHAEL JACKSON · 1982</div>
+                        <div style="font-weight: 700; color: var(--text-main); font-size: 0.95rem;">Thriller</div>
+                        <div style="color: var(--text-sub); font-size: 0.78rem; letter-spacing: 1px;">MICHAEL JACKSON · 1982</div>
                     </div>
                 </div>
 
                 <div class="album-vinyl">
-                    <div class="vinyl-art" style="background: linear-gradient(135deg, #0a0a0a, #00002a);">
-                        <span style="font-size: 2.5rem;">🎩</span>
+                    <div class="vinyl-art" id="vinyl-bad" style="background: linear-gradient(135deg, #0a0a0a, #00002a);">
+                        <span style="font-size: 2.2rem;">🎩</span>
                         <div class="vinyl-hole"></div>
                     </div>
                     <div class="vinyl-info">
-                        <div style="font-weight: 700; color: var(--text-main); font-size: 1rem;">Bad</div>
-                        <div style="color: var(--text-sub); font-size: 0.82rem; letter-spacing: 1px;">MICHAEL JACKSON · 1987</div>
+                        <div style="font-weight: 700; color: var(--text-main); font-size: 0.95rem;">Bad</div>
+                        <div style="color: var(--text-sub); font-size: 0.78rem; letter-spacing: 1px;">MICHAEL JACKSON · 1987</div>
                     </div>
                 </div>
 
@@ -593,13 +724,68 @@
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
     <script>
-        window.addEventListener('load', () => {
+        
+        function hidePreloader() {
             const preloader = document.getElementById('preloader');
-            if (preloader) setTimeout(() => preloader.classList.add('hidden'), 300);
-        });
+            if (preloader) preloader.classList.add('hidden');
+        }
+        window.addEventListener('load', () => setTimeout(hidePreloader, 300));
+        setTimeout(hidePreloader, 2000);
+
+        
+        
+        async function loadAlbumArt() {
+            const tracks = [
+                { id: 'art-1', query: 'Henry Moodie Drunk Text',                    emoji: '🎤' },
+                { id: 'art-2', query: 'Backstreet Boys Drowning',                    emoji: '🎵' },
+                { id: 'art-3', query: 'Michael Jackson Thriller',                    emoji: '🕺' },
+                { id: 'art-4', query: 'Matthew Ifield I Think They Call This Love',  emoji: '🎹' },
+                { id: 'art-5', query: 'Jackson 5 I Want You Back',                   emoji: '🎶' },
+            ];
+            const vinyls = [
+                { id: 'vinyl-thriller', query: 'Michael Jackson Thriller 1982' },
+                { id: 'vinyl-bad',      query: 'Michael Jackson Bad 1987'      },
+            ];
+
+            async function fetchArt(query) {
+                try {
+                    const res  = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&media=music&limit=1`);
+                    const data = await res.json();
+                    if (data.results && data.results[0])
+                        return data.results[0].artworkUrl100.replace('100x100bb', '300x300bb');
+                } catch(e) {}
+                return null;
+            }
+
+            for (const t of tracks) {
+                const el = document.getElementById(t.id);
+                if (!el) continue;
+                const url = await fetchArt(t.query);
+                if (url) {
+                    el.style.cssText += ';padding:0;overflow:hidden;';
+                    el.innerHTML = `<img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:7px;" onerror="this.parentElement.innerHTML='${t.emoji}'">`;
+                }
+            }
+
+            for (const v of vinyls) {
+                const el = document.getElementById(v.id);
+                if (!el) continue;
+                const url = await fetchArt(v.query);
+                if (url) {
+                    el.style.cssText += ';padding:0;overflow:hidden;';
+                    el.innerHTML = `<img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"><div class="vinyl-hole"></div>`;
+                }
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadAlbumArt);
+        } else {
+            loadAlbumArt();
+        }
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];

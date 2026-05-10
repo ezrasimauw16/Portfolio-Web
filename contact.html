@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <style>
-        /* Contact Page Layout */
+        
         .contact-layout {
             display: flex;
             gap: 50px;
@@ -23,7 +23,7 @@
             min-width: 300px;
         }
 
-        /* Form Styling */
+        
         .form-group {
             margin-bottom: 25px;
         }
@@ -38,7 +38,7 @@
         .form-control {
             width: 100%;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.03); /* Extremely subtle glass background */
+            background: rgba(255, 255, 255, 0.03); 
             border: 1px solid var(--glass-border);
             border-radius: 10px;
             color: var(--text-main);
@@ -62,10 +62,10 @@
             min-height: 160px;
         }
 
-        /* Submit Button */
+        
         .submit-btn {
             background: var(--accent);
-            color: #04052E; /* Dark text for contrast against the accent color */
+            color: #04052E; 
             border: none;
             padding: 15px 35px;
             border-radius: 10px;
@@ -82,7 +82,7 @@
             transform: translateY(-3px);
         }
 
-        /* Override global h1 gradient for light mode readability */
+        
         h1 {
             background: none;
             -webkit-background-clip: unset;
@@ -160,7 +160,7 @@
     </style>
 </head>
 <body>
-    <!-- PRELOADER -->
+    
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-shutter">
@@ -172,16 +172,27 @@
         </div>
     </div>
 
-
     <div id="bg-canvas"></div>
 
     <nav>
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="gallery.html">GALLERY</a>
-        <a href="blog.html">BLOG</a>
-        <a href="contact.html">CONTACT</a>
-        </nav>
+        <a href="index.html" class="nav-brand">EZRA</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html" class="active">CONTACT</a>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </div>
+    </nav>
 
     <main class="container">
         
@@ -214,20 +225,34 @@
     
                     <hr style="border: none; border-top: 1px solid var(--glass-border); margin-bottom: 30px;">
 
-                   <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 5px;">
-                            <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/instagram-white-icon.png" width="20" alt="Instagram">
-                             <a href="https://www.instagram.com/itsezra_ffs/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; transition: 0.3s;">
-                             FOLLOW ON INSTAGRAM
-                         </a>
-                    </div>
+                <div class="social-links-grid">
+                    <a href="https://www.instagram.com/itsezra_ffs/" target="_blank" class="social-link-card">
+                        <div class="social-icon" style="background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); padding: 8px;"><img src="https://cdn.simpleicons.org/instagram/ffffff" width="24" height="24" alt="Instagram" style="display:block;"></div>
+                        <div class="social-text">
+                            <div class="social-name">INSTAGRAM</div>
+                            <div class="social-handle">@itsezra_ffs</div>
+                        </div>
+                        <span class="social-arrow">→</span>
+                    </a>
 
-                    <div style="display: flex; align-items: center; gap: 12px; margin-top: 25px;">
-    <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/whatsapp-white-icon.png" width="20" alt="WhatsApp">
-    
-    <a href="https://wa.me/628114921000" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.5px; transition: 0.3s;">
-        CHAT ON WHATSAPP
-    </a>
-</div>
+                    <a href="https://wa.me/628114921000" target="_blank" class="social-link-card">
+                        <div class="social-icon" style="background: linear-gradient(135deg, #25d366, #128c7e); padding: 8px;"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" width="24" height="24" alt="WhatsApp" style="display:block;"></div>
+                        <div class="social-text">
+                            <div class="social-name">WHATSAPP</div>
+                            <div class="social-handle">+62 811-492-1000</div>
+                        </div>
+                        <span class="social-arrow">→</span>
+                    </a>
+
+                    <a href="mailto:ezrastevesimauw2@gmail.com" class="social-link-card">
+                        <div class="social-icon" style="background: linear-gradient(135deg, #4285f4, #34a853); padding: 8px;"><img src="https://cdn.simpleicons.org/gmail/ffffff" width="24" height="24" alt="Gmail" style="display:block;"></div>
+                        <div class="social-text">
+                            <div class="social-name">EMAIL</div>
+                            <div class="social-handle">ezrastevesimauw2@gmail.com</div>
+                        </div>
+                        <span class="social-arrow">→</span>
+                    </a>
+                </div>
                 </div>
             </div>
 
@@ -263,7 +288,6 @@
         &copy; 2026 Ezra Steve Simauw | Informatics Student, Designer &amp; Photographer
     </footer>
 
-
     <button id="back-to-top" title="Back to top">&#8679;</button>
 
     <script>
@@ -291,7 +315,7 @@
         });
     </script>
 
-    <!-- EASTER EGG: Konami Code -->
+    
     <script>
         (function() {
             const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -310,7 +334,7 @@
             });
 
             function triggerEasterEgg() {
-                // Toast message
+                
                 const toast = document.createElement('div');
                 toast.id = 'egg-toast';
                 toast.innerHTML = '📷 You found the secret! <b>Ezra was here.</b>';
@@ -336,7 +360,7 @@
                     setTimeout(() => toast.remove(), 400);
                 }, 3500);
 
-                // Confetti burst
+                
                 launchConfetti();
             }
 
@@ -369,7 +393,7 @@
                     setTimeout(() => el.remove(), duration + delay + 100);
                 }
 
-                // Inject keyframes once
+                
                 if (!document.getElementById('confetti-style')) {
                     const style = document.createElement('style');
                     style.id = 'confetti-style';
@@ -382,7 +406,7 @@
                     document.head.appendChild(style);
                 }
 
-                // Set random rotation per piece via JS
+                
                 document.querySelectorAll('[style*="confetti-fall"]').forEach(el => {
                     el.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
                 });
